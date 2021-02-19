@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "32dd9115-6a33-42d2-be66-0a366531f8fa",
+		"name": "Google Places",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get nearby places OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const Ajv = require(\"ajv\"),\r",
+							"\tajv = new Ajv({ logger: console });\r",
+							"\r",
+							"pm.test(\"Status code is 200\", () => {\r",
+							"\tpm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Root response has a valid structure\", () => {\r",
+							"\tpm.response.to.be.json;\r",
+							"\tconst jsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData).to.be.an(\"object\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Results has a valid structure\", () => {\r",
+							"\tconst geometrySchema = {\r",
+							"\t\ttype: \"object\",\r",
+							"\t\tproperties: {\r",
+							"\t\t\tlocation: {\r",
+							"\t\t\t\ttype: \"object\",\r",
+							"\t\t\t\tproperties: {\r",
+							"\t\t\t\t\tlat: { type: \"number\" },\r",
+							"\t\t\t\t\tlng: { type: \"number\" },\r",
+							"\t\t\t\t},\r",
+							"\t\t\t\trequired: [\"lat\", \"lng\"],\r",
+							"\t\t\t},\r",
+							"\t\t\tviewport: { type: \"object\" },\r",
+							"\t\t},\r",
+							"\t\trequired: [\"location\"],\r",
+							"\t};\r",
+							"\r",
+							"\tconst schema = {\r",
+							"\t\ttype: \"array\",\r",
+							"\t\titems: [\r",
+							"\t\t\t{\r",
+							"\t\t\t\tproperties: {\r",
+							"\t\t\t\t\tgeometry: geometrySchema,\r",
+							"\t\t\t\t\tname: { type: \"string\" },\r",
+							"                    place_id: { type: \"string\" },\r",
+							"\t\t\t\t\trating: { type: \"number\" },\r",
+							"\t\t\t\t\tuser_ratings_total: { type: \"number\" },\r",
+							"\t\t\t\t\tvicinity: { type: \"string\" },\r",
+							"\t\t\t\t},\r",
+							"\t\t\t\trequired: [\"geometry\", \"name\", \"place_id\"],\r",
+							"\t\t\t\tadditionalProperties: true,\r",
+							"\t\t\t},\r",
+							"\t\t],\r",
+							"\t};\r",
+							"\r",
+							"\tconst jsonObj = pm.response.json();\r",
+							"\tpm.expect(jsonObj.results).to.be.an(\"array\");\r",
+							"\tconst results = jsonObj.results;\r",
+							"\tpm.expect(ajv.validate(schema, results), JSON.stringify(ajv.errors)).to.be.true;\r",
+							"\r",
+							"    //pick the first item with valid data and save some key properties that could be used in other requests.\r",
+							"    const selectedItem = results.find(item => \r",
+							"        (!!item.rating && item.rating > 0) && \r",
+							"        (!!item.vicinity && item.vicinity.length > 0) &&\r",
+							"        (!!item.photos && item.photos.length > 0)\r",
+							"    );\r",
+							"\r",
+							"    if(!!selectedItem) {\r",
+							"        pm.environment.set(\"PLACE_ID_DEF\", selectedItem.place_id);\r",
+							"        pm.environment.set(\"PHOTO_REF_DEF\", selectedItem.photos[0].photo_reference);\r",
+							"        console.info(\"env variables updated\");\r",
+							"    } else {\r",
+							"        console.warn(\"null selectedItem\");\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key={{G_API_KEY}}&location={{COORDS_DEF}}&radius={{RAD_DEF}}",
+					"protocol": "https",
+					"host": [
+						"maps",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"nearbysearch",
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{G_API_KEY}}"
+						},
+						{
+							"key": "location",
+							"value": "{{COORDS_DEF}}"
+						},
+						{
+							"key": "radius",
+							"value": "{{RAD_DEF}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get place details OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const Ajv = require(\"ajv\"),\r",
+							"\tajv = new Ajv({ logger: console });\r",
+							"\r",
+							"pm.test(\"Status code is 200\", () => {\r",
+							"\tpm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Root response has a valid structure\", () => {\r",
+							"\tpm.response.to.be.json;\r",
+							"\tconst jsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData).to.be.an(\"object\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Results has a valid structure\", () => {\r",
+							"\tconst geometrySchema = {\r",
+							"\t\ttype: \"object\",\r",
+							"\t\tproperties: {\r",
+							"\t\t\tlocation: {\r",
+							"\t\t\t\ttype: \"object\",\r",
+							"\t\t\t\tproperties: {\r",
+							"\t\t\t\t\tlat: { type: \"number\" },\r",
+							"\t\t\t\t\tlng: { type: \"number\" },\r",
+							"\t\t\t\t},\r",
+							"\t\t\t\trequired: [\"lat\", \"lng\"],\r",
+							"\t\t\t}\r",
+							"\t\t},\r",
+							"\t\trequired: [\"location\"],\r",
+							"\t};\r",
+							"\r",
+							"    const reviewsSchema = {\r",
+							"        type: \"array\",\r",
+							"\t\titems: [\r",
+							"            {\r",
+							"                properties: {\r",
+							"                    author_name: { type: \"string\" },\r",
+							"                    profile_photo_url: { type: \"string\" },\r",
+							"                    rating: { type: \"number\" },\r",
+							"                    text: { type: \"string\" },\r",
+							"                    relative_time_description: { type: \"string\" },\r",
+							"                    time: { type: \"number\" },\r",
+							"                },\r",
+							"                required: [\"author_name\", \"rating\", \"time\"],\r",
+							"            }\r",
+							"        ]\r",
+							"    };\r",
+							"\r",
+							"\tconst schema = {\r",
+							"\t\ttype: \"object\",\r",
+							"\t\tproperties: {\r",
+							"\t\t\tgeometry: geometrySchema,\r",
+							"            reviews: reviewsSchema,\r",
+							"\t\t\tname: { type: \"string\" },\r",
+							"\t\t\tplace_id: { type: \"string\" },\r",
+							"\t\t\trating: { type: \"number\" },\r",
+							"\t\t\tuser_ratings_total: { type: \"number\" },\r",
+							"\t\t\tvicinity: { type: \"string\" },\r",
+							"\t\t\turl: { type: \"string\" },\r",
+							"\t\t},\r",
+							"\t\trequired: [\"geometry\", \"name\", \"place_id\"],\r",
+							"\t\tadditionalProperties: true,\r",
+							"\t};\r",
+							"\r",
+							"\tconst jsonObj = pm.response.json();\r",
+							"\tpm.expect(jsonObj.result).to.be.an(\"object\");\r",
+							"\tconst result = jsonObj.result;\r",
+							"\tpm.expect(ajv.validate(schema, result), JSON.stringify(ajv.errors)).to.be.true;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://maps.googleapis.com/maps/api/place/details/json?key={{G_API_KEY}}&place_id={{PLACE_ID_DEF}}",
+					"protocol": "https",
+					"host": [
+						"maps",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"details",
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{G_API_KEY}}"
+						},
+						{
+							"key": "place_id",
+							"value": "{{PLACE_ID_DEF}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get place photo OK",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://maps.googleapis.com/maps/api/place/photo?key={{G_API_KEY}}&maxwidth=400&photoreference={{PHOTO_REF_DEF}}",
+					"protocol": "https",
+					"host": [
+						"maps",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"photo"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{G_API_KEY}}"
+						},
+						{
+							"key": "maxwidth",
+							"value": "400"
+						},
+						{
+							"key": "photoreference",
+							"value": "{{PHOTO_REF_DEF}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
