@@ -1,0 +1,819 @@
+{
+  "html_attributions": [],
+  "results": [
+    {
+      "geometry": {
+        "location": {
+          "lat": 12.1149926,
+          "lng": -86.2361744
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.17535737687688,
+            "lng": -86.12508776296151
+          },
+          "southwest": {
+            "lat": 12.01996056329496,
+            "lng": -86.39183341748986
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/geocode-71.png",
+      "name": "Managua",
+      "photos": [
+        {
+          "height": 458,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/118346258141601367821\">Julian Bendaña</a>"
+          ],
+          "photo_reference": "ATtYBwJItr5cPrvsfAgFRstUQDChizhkhqLe7dvSMYKinS3mtS6NhLHXtM7y2idejvkpHlXbYoZWiwUARrBzLMp0vCpY-WQt53HuEqYCj20C7I7dVRwV6YepTPGwLPJOiYTMT7swAN44ZCvCGTveDyj4-wlJGX9PonyoxAi6MMu5W8FQc9LU",
+          "width": 700
+        }
+      ],
+      "place_id": "ChIJC4gH2Q1WcY8RakxPFKL0Xmw",
+      "reference": "ChIJC4gH2Q1WcY8RakxPFKL0Xmw",
+      "scope": "GOOGLE",
+      "types": [
+        "locality",
+        "political"
+      ],
+      "vicinity": "Managua"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1284438,
+          "lng": -86.266695
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1299309302915,
+            "lng": -86.2652755197085
+          },
+          "southwest": {
+            "lat": 12.1272329697085,
+            "lng": -86.2679734802915
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/gas_station-71.png",
+      "name": "Puma",
+      "opening_hours": {
+        "open_now": true
+      },
+      "photos": [
+        {
+          "height": 2592,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/102210473095822590574\">Néstor Lenin Chavarría Rosales.</a>"
+          ],
+          "photo_reference": "ATtYBwLddAR_en-M8EOei4v4sMUTS8DTMPyejRnzw5kBPqIdKfhjwHVzKfsGA6CCm-sRFmht6x1ciuG3NAsRmP_KtKm9K3gQ47GclENVgp8oz0pitRzPkGMUqkohDo7XkiIPmeCT_9Xace76N2F-1H6q4Vub101-LGRXI0DU72EN3u1Ix0DP",
+          "width": 4608
+        }
+      ],
+      "place_id": "ChIJvUtCNOVVcY8RslAHSm_F6Ec",
+      "plus_code": {
+        "compound_code": "4PHM+98 Managua, Nicaragua",
+        "global_code": "764M4PHM+98"
+      },
+      "rating": 4,
+      "reference": "ChIJvUtCNOVVcY8RslAHSm_F6Ec",
+      "scope": "GOOGLE",
+      "types": [
+        "gas_station",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 327,
+      "vicinity": "Costado Sur Rotonda Rubén Darío., Rotonda Rubén Darío, Managua"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1282406,
+          "lng": -86.26666279999999
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1297482302915,
+            "lng": -86.26514411970848
+          },
+          "southwest": {
+            "lat": 12.1270502697085,
+            "lng": -86.26784208029149
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/atm-71.png",
+      "name": "BAC | Nicaragua ATM",
+      "opening_hours": {
+        "open_now": true
+      },
+      "place_id": "ChIJOfZVNeVVcY8RWGYTn7yk3Pk",
+      "plus_code": {
+        "compound_code": "4PHM+78 Managua, Nicaragua",
+        "global_code": "764M4PHM+78"
+      },
+      "rating": 5,
+      "reference": "ChIJOfZVNeVVcY8RWGYTn7yk3Pk",
+      "scope": "GOOGLE",
+      "types": [
+        "atm",
+        "finance",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 1,
+      "vicinity": "Frente Rotonda Metrocentro Ruben Dario, Managua"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1282391,
+          "lng": -86.266605
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1297108802915,
+            "lng": -86.2650842197085
+          },
+          "southwest": {
+            "lat": 12.1270129197085,
+            "lng": -86.2677821802915
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/bank-71.png",
+      "name": "BAC CREDOMATIC",
+      "place_id": "ChIJFwdYtfpVcY8RUhDdXyKwisY",
+      "plus_code": {
+        "compound_code": "4PHM+79 Managua, Nicaragua",
+        "global_code": "764M4PHM+79"
+      },
+      "reference": "ChIJFwdYtfpVcY8RUhDdXyKwisY",
+      "scope": "GOOGLE",
+      "types": [
+        "bank",
+        "finance",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "FRENTE ROTONDA METROCENTRO RUBEN DARIO, NICARAGUA"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1290037,
+          "lng": -86.2663563
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1301906802915,
+            "lng": -86.2650013197085
+          },
+          "southwest": {
+            "lat": 12.1274927197085,
+            "lng": -86.26769928029151
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "name": "Rotonda Rubén Darío (Metrocentro)",
+      "opening_hours": {
+        "open_now": true
+      },
+      "photos": [
+        {
+          "height": 599,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/104384179447048192013\">Elvis Cerda</a>"
+          ],
+          "photo_reference": "ATtYBwIKmDZ6DjMuxbAJ74O1ElYjP56xi8A3rHfGtQkCd24vEVgebAU2HQkddJhJTRP9_5VqojjlU-YLExjaHS8aDCcxe5YkL-g-BsNwVEpLc7iABw0WDmt0SC4I_M1JKWSMf2lMUw0Pn4wf8JsvtfjsftWw74DYNWjSlp0Gy9hSty-1IrOC",
+          "width": 1080
+        }
+      ],
+      "place_id": "ChIJRZqwcntVcY8RsBp2eSSqzuc",
+      "plus_code": {
+        "compound_code": "4PHM+JF Managua, Nicaragua",
+        "global_code": "764M4PHM+JF"
+      },
+      "rating": 5,
+      "reference": "ChIJRZqwcntVcY8RsBp2eSSqzuc",
+      "scope": "GOOGLE",
+      "types": [
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 1,
+      "vicinity": "Managua"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1289565,
+          "lng": -86.2662363
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1302102802915,
+            "lng": -86.26481526970851
+          },
+          "southwest": {
+            "lat": 12.1275123197085,
+            "lng": -86.26751323029151
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "name": "Compass Real Estate Nicaragua",
+      "opening_hours": {
+        "open_now": true
+      },
+      "place_id": "ChIJaxrf0fpVcY8RSnlxRSSMEdQ",
+      "plus_code": {
+        "compound_code": "4PHM+HG Managua, Nicaragua",
+        "global_code": "764M4PHM+HG"
+      },
+      "rating": 5,
+      "reference": "ChIJaxrf0fpVcY8RSnlxRSSMEdQ",
+      "scope": "GOOGLE",
+      "types": [
+        "real_estate_agency",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 2,
+      "vicinity": "Managua"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1291505,
+          "lng": -86.26632750000002
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1306124802915,
+            "lng": -86.26481006970852
+          },
+          "southwest": {
+            "lat": 12.1279145197085,
+            "lng": -86.26750803029152
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "name": "Edificio Grupo Nuñez",
+      "photos": [
+        {
+          "height": 958,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/113418752028859933154\">Marvin Urbina</a>"
+          ],
+          "photo_reference": "ATtYBwL3v8OwPSVCY7Zhsap0Wz2NTftkj44O72sWUKIS2AhMxjjB8zfvCoUDuiNfwNHHal1LCF4RatcDZHeh53DUV7OYYBviYrH5cT5m9Pl8FKm8wBDwPf5IAPNZq4WjEyE-0dKzUOxFUQb6Sx5llssCrU6kES45ozsyvCFk6P-PROzoV7rf",
+          "width": 1280
+        }
+      ],
+      "place_id": "ChIJYWC6hZJVcY8Rrlc1AVylsdY",
+      "plus_code": {
+        "compound_code": "4PHM+MF Managua, Nicaragua",
+        "global_code": "764M4PHM+MF"
+      },
+      "reference": "ChIJYWC6hZJVcY8Rrlc1AVylsdY",
+      "scope": "GOOGLE",
+      "types": [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "Rotonda Rubén Dario, 100m al Oeste, 200m al Norte"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1291505,
+          "lng": -86.26632750000002
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1306124802915,
+            "lng": -86.26481006970852
+          },
+          "southwest": {
+            "lat": 12.1279145197085,
+            "lng": -86.26750803029152
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "name": "CAASA",
+      "opening_hours": {
+        "open_now": true
+      },
+      "photos": [
+        {
+          "height": 853,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/117843754889722243364\">CAASA</a>"
+          ],
+          "photo_reference": "ATtYBwLJZqUN-NYhs8gXrgUZcs13FelV_PIaRKO2PDNdyq3GkE0rf67vjJnZ0AgoFKRd2_n13lG27Nlct30MvtgFeCxp_b2-WKSVLjqn3P-SI_eIV9ftLMi5SWHnIOhfUfGVistswj9SCqPCCntm9yVB_6OpXm6PClHYf4coDWu31tXcaKsG",
+          "width": 1280
+        }
+      ],
+      "place_id": "ChIJMXqZyDRVcY8RC3L-k9uC8Dk",
+      "plus_code": {
+        "compound_code": "4PHM+MF Managua, Nicaragua",
+        "global_code": "764M4PHM+MF"
+      },
+      "rating": 5,
+      "reference": "ChIJMXqZyDRVcY8RC3L-k9uC8Dk",
+      "scope": "GOOGLE",
+      "types": [
+        "car_repair",
+        "general_contractor",
+        "point_of_interest",
+        "store",
+        "establishment"
+      ],
+      "user_ratings_total": 16,
+      "vicinity": "Rotonda Ruben Darío, 1 cuadra al sur, 1/2 al oeste"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1291794,
+          "lng": -86.26631479999999
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1306716302915,
+            "lng": -86.2648457697085
+          },
+          "southwest": {
+            "lat": 12.1279736697085,
+            "lng": -86.26754373029151
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "name": "Ruben Dario Rotonda",
+      "opening_hours": {
+        "open_now": true
+      },
+      "photos": [
+        {
+          "height": 2592,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/102210473095822590574\">Néstor Lenin Chavarría Rosales.</a>"
+          ],
+          "photo_reference": "ATtYBwJMmgqVgkJlU5jDSO0uQnFzyHAnODNXSsUS53darwri7WowkaRNNAlZh9D-4yIzQ1dS1EzGGHQxC8nHc1gtuSikh9Hb2HssEcHR_f5OlkjoSy7MN3CF4DqjL63Yyw-1UT-Xua0mug56zc8To7j2aZ665Lv1oZTmdwHqoK65iBbC0M49",
+          "width": 4608
+        }
+      ],
+      "place_id": "ChIJrRNj0fpVcY8RkA9ouGX-HCA",
+      "plus_code": {
+        "compound_code": "4PHM+MF Managua, Nicaragua",
+        "global_code": "764M4PHM+MF"
+      },
+      "rating": 3.8,
+      "reference": "ChIJrRNj0fpVcY8RkA9ouGX-HCA",
+      "scope": "GOOGLE",
+      "types": [
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 18,
+      "vicinity": "Managua"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1286929,
+          "lng": -86.26716329999999
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1300925302915,
+            "lng": -86.26582996970851
+          },
+          "southwest": {
+            "lat": 12.1273945697085,
+            "lng": -86.26852793029151
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "name": "SmartMobile",
+      "opening_hours": {
+        "open_now": true
+      },
+      "photos": [
+        {
+          "height": 3096,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/109325758445432080367\">y3rson zeledon</a>"
+          ],
+          "photo_reference": "ATtYBwIe730Bh9z4bDJesWZvBCdxKBIGOK_Xaiop86BHDpLhFpa9KYHKTSyfJg2IfV29-j-LtBTtnBgeYoMauhCukjJWmzvLFJC19om4D0LGnbRE7FPWpPMTXzWLVgn-Kpv1BFCsf-EITdbwP3sx0TJfSYSfpWpkJLxPLlbNTwUJsALO1cUJ",
+          "width": 4128
+        }
+      ],
+      "place_id": "ChIJi0m7dUBVcY8RKk5hyfgJ9YA",
+      "plus_code": {
+        "compound_code": "4PHM+F4 Managua, Nicaragua",
+        "global_code": "764M4PHM+F4"
+      },
+      "reference": "ChIJi0m7dUBVcY8RKk5hyfgJ9YA",
+      "scope": "GOOGLE",
+      "types": [
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "Managua"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1281032,
+          "lng": -86.2662393
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1294793802915,
+            "lng": -86.2648170697085
+          },
+          "southwest": {
+            "lat": 12.1267814197085,
+            "lng": -86.26751503029151
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "name": "Clinica MEDICENTRO",
+      "photos": [
+        {
+          "height": 3264,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/101164386457455378445\">Espi_accent</a>"
+          ],
+          "photo_reference": "ATtYBwLjo1YJs227tBdxY-NWXPFC-tSJ0Ejt1yG9EFvB2m6FMrQjBRBTFyk17iTtuMXhmzr9mLxyhdEI00hhPYJvMXQiagW7CTqmf2b7-LakFbOzOu_Vl25BSEF-De-6bRGPOa5jHW054Uu43hql1wxv3HUJsuHU3iyQkIDNgssWLkyr8fAa",
+          "width": 2448
+        }
+      ],
+      "place_id": "ChIJlfkCGZhVcY8Rq90197Gm438",
+      "plus_code": {
+        "compound_code": "4PHM+6G Managua, Nicaragua",
+        "global_code": "764M4PHM+6G"
+      },
+      "reference": "ChIJlfkCGZhVcY8Rq90197Gm438",
+      "scope": "GOOGLE",
+      "types": [
+        "health",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "transporte turistico, 25.ª Calle Sureste, Managua"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1286051,
+          "lng": -86.2656569
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1299469802915,
+            "lng": -86.26435041970849
+          },
+          "southwest": {
+            "lat": 12.1272490197085,
+            "lng": -86.2670483802915
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/bank-71.png",
+      "name": "Banpro Nicaragua",
+      "opening_hours": {
+        "open_now": false
+      },
+      "photos": [
+        {
+          "height": 2304,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/104107951092609787459\">José Carlos Rivas Reyes</a>"
+          ],
+          "photo_reference": "ATtYBwKdNvTJr_eHUiw11mWyna27vLe54TKJrF66fvP_wyuLEU1Xadh9ngRlsR2jlrNSlBX5LFaBJ7iJlrud_inCnAGJLl0dSzhElmIwylQnrKCkUPXIJTyCZMkWuHhikreOhz43qIpaV_XIIK6Dp7WqJ7-Utrm6jNgGlSF9ssqw3Qoi_l6z",
+          "width": 4096
+        }
+      ],
+      "place_id": "ChIJY6j8w_pVcY8RgucW4PGiTqY",
+      "plus_code": {
+        "compound_code": "4PHM+CP Managua, Nicaragua",
+        "global_code": "764M4PHM+CP"
+      },
+      "rating": 3.8,
+      "reference": "ChIJY6j8w_pVcY8RgucW4PGiTqY",
+      "scope": "GOOGLE",
+      "types": [
+        "bank",
+        "finance",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 30,
+      "vicinity": "Metrocentro, Paseo de la Unión Europea, Managua"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1285838,
+          "lng": -86.26730379999999
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1300143802915,
+            "lng": -86.26598006970848
+          },
+          "southwest": {
+            "lat": 12.1273164197085,
+            "lng": -86.2686780302915
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+      "name": "Protecto",
+      "photos": [
+        {
+          "height": 3072,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/102996704344853991311\">Gabriella Trejoss</a>"
+          ],
+          "photo_reference": "ATtYBwIIqE3AcaEF6aEcAxoosJFUY1YYESG7ipiZVIc09S1JBvipIWzFFDkyk9oMxrJ_o0ZmXitvHXEX5ThlEVfpCPxIyZX0W4_zYRuNd7wtLmhZsH4zg_U3v7OxtX9Zq5hQlQtulweeMNFs7jPlBI0eWoPYK1yp-m1tcwJ-qYGY4T2QV8Th",
+          "width": 4096
+        }
+      ],
+      "place_id": "ChIJA732tkFVcY8R74Cnc8EqGaE",
+      "plus_code": {
+        "compound_code": "4PHM+C3 Managua, Nicaragua",
+        "global_code": "764M4PHM+C3"
+      },
+      "reference": "ChIJA732tkFVcY8R74Cnc8EqGaE",
+      "scope": "GOOGLE",
+      "types": [
+        "store",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "Gasolinera, Rotonda Rubén Darío, Managua"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1295581,
+          "lng": -86.2668644
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1308879302915,
+            "lng": -86.26548056970849
+          },
+          "southwest": {
+            "lat": 12.1281899697085,
+            "lng": -86.26817853029151
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "name": "KOINKA",
+      "opening_hours": {
+        "open_now": true
+      },
+      "photos": [
+        {
+          "height": 3472,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/106006949450397980717\">German Dávila</a>"
+          ],
+          "photo_reference": "ATtYBwKwusjr21ytBd6nhL5PGEcrrNx0zcFMsrELT86C5EAry4-egzlmtz3dDkl-JIBZXqFhc6MqVIGr881-W3lvWpop8DFVUCADy5vXambDaTBpsA3MzG8uDm4coZ2pL1sB5BknTeJil9qx46vRA-pzFxVHdthTgr381v9Xn12RS859njyR",
+          "width": 4624
+        }
+      ],
+      "place_id": "ChIJJatHqttVcY8RZtsDDhAPLmU",
+      "plus_code": {
+        "compound_code": "4PHM+R7 Managua, Nicaragua",
+        "global_code": "764M4PHM+R7"
+      },
+      "reference": "ChIJJatHqttVcY8RZtsDDhAPLmU",
+      "scope": "GOOGLE",
+      "types": [
+        "general_contractor",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "Contiguo Ricón Peruano, Managua"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1295581,
+          "lng": -86.2668644
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1308879302915,
+            "lng": -86.26548056970849
+          },
+          "southwest": {
+            "lat": 12.1281899697085,
+            "lng": -86.26817853029151
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/gas_station-71.png",
+      "name": "todas las gasolineras",
+      "place_id": "ChIJd_n2xXJVcY8RT4sKlUXdN74",
+      "plus_code": {
+        "compound_code": "4PHM+R7 Managua, Nicaragua",
+        "global_code": "764M4PHM+R7"
+      },
+      "reference": "ChIJd_n2xXJVcY8RT4sKlUXdN74",
+      "scope": "GOOGLE",
+      "types": [
+        "gas_station",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "Rotonda Rubén Darío, Gasolinera UNO, Managua"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1295689,
+          "lng": -86.266892
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1308916802915,
+            "lng": -86.26549531970849
+          },
+          "southwest": {
+            "lat": 12.1281937197085,
+            "lng": -86.2681932802915
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/gas_station-71.png",
+      "name": "UNO",
+      "opening_hours": {
+        "open_now": true
+      },
+      "photos": [
+        {
+          "height": 2448,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/116084121790308827146\">Jared Molina</a>"
+          ],
+          "photo_reference": "ATtYBwJDuU7yg623s55nMt-Xaph4nwI5Ws75--JoV7lJqFFc5YH_0EcfMyn5xYVfnwlaVEMAyuTRSn0jPTW0YLwxPxZXdIRLnFWmECSRLM4E3Ne3jY4XsQIhBDKLAUTn936jcflGxfVoP5Ra2NbcTIab-vlVz1My1U6cGzRmco7-4Ozxrdu3",
+          "width": 3264
+        }
+      ],
+      "place_id": "ChIJSwY_KuVVcY8Rp8gzBpXv85o",
+      "plus_code": {
+        "compound_code": "4PHM+R6 Managua, Nicaragua",
+        "global_code": "764M4PHM+R6"
+      },
+      "rating": 4.1,
+      "reference": "ChIJSwY_KuVVcY8Rp8gzBpXv85o",
+      "scope": "GOOGLE",
+      "types": [
+        "gas_station",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 13,
+      "vicinity": "Managua"
+    },
+    {
+      "business_status": "OPERATIONAL",
+      "geometry": {
+        "location": {
+          "lat": 12.1283821,
+          "lng": -86.2673236
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1297122302915,
+            "lng": -86.2660352197085
+          },
+          "southwest": {
+            "lat": 12.1270142697085,
+            "lng": -86.26873318029151
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+      "name": "Centro Diagnóstico Cardiovascular",
+      "opening_hours": {
+        "open_now": true
+      },
+      "place_id": "ChIJd4k5OOVVcY8RktR6b-89--k",
+      "plus_code": {
+        "compound_code": "4PHM+93 Managua, Nicaragua",
+        "global_code": "764M4PHM+93"
+      },
+      "rating": 5,
+      "reference": "ChIJd4k5OOVVcY8RktR6b-89--k",
+      "scope": "GOOGLE",
+      "types": [
+        "doctor",
+        "health",
+        "point_of_interest",
+        "establishment"
+      ],
+      "user_ratings_total": 1,
+      "vicinity": "10 Avenida Sureste, Managua"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 12.1291505,
+          "lng": -86.26632750000002
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.1306124802915,
+            "lng": -86.26481006970852
+          },
+          "southwest": {
+            "lat": 12.1279145197085,
+            "lng": -86.26750803029152
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/museum-71.png",
+      "name": "Rotonda Rubén Darío",
+      "photos": [
+        {
+          "height": 4160,
+          "html_attributions": [
+            "<a href=\"https://maps.google.com/maps/contrib/102671364164316813900\">Marielos Boedeker</a>"
+          ],
+          "photo_reference": "ATtYBwLgGyGck6QQbXYBJ5O9U1imahTe5Hv7_A261aPof3odaTrRtA4tLXPa6dDmtJE6TK4L6IpiiXkkMp1OqkLWy2SP2Cnfw6ImrD-4pvHRdMm66SEsBs2RNeEP-nkmkYYzLmXWucGmaWB7x0dhSGKEm2pzfvcPNrcrecU15-X2PAAY-bEV",
+          "width": 3120
+        }
+      ],
+      "place_id": "ChIJKaDW0_pVcY8RkK03wSqKZ3U",
+      "reference": "ChIJKaDW0_pVcY8RkK03wSqKZ3U",
+      "scope": "GOOGLE",
+      "types": [
+        "premise",
+        "point_of_interest",
+        "establishment"
+      ],
+      "vicinity": "Managua"
+    },
+    {
+      "geometry": {
+        "location": {
+          "lat": 12.1254041,
+          "lng": -86.2679155
+        },
+        "viewport": {
+          "northeast": {
+            "lat": 12.12894494363389,
+            "lng": -86.26421075816661
+          },
+          "southwest": {
+            "lat": 12.12190392414847,
+            "lng": -86.27352248207892
+          }
+        }
+      },
+      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/geocode-71.png",
+      "name": "Reparto Lomas de Guadalupe",
+      "place_id": "ChIJYxWomO9VcY8RIUTUblORXmk",
+      "reference": "ChIJYxWomO9VcY8RIUTUblORXmk",
+      "scope": "GOOGLE",
+      "types": [
+        "sublocality_level_1",
+        "sublocality",
+        "political"
+      ],
+      "vicinity": "Reparto Lomas de Guadalupe"
+    }
+  ],
+  "status": "OK"
+}
