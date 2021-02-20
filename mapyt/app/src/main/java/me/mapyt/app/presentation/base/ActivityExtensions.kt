@@ -1,9 +1,12 @@
 package me.mapyt.app.presentation.base
 
 import androidx.annotation.IdRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import me.mapyt.app.R
 
 interface AppActivityBase {}
 
@@ -18,7 +21,7 @@ object ActivityBaseUtils {
             replace(viewId, fragment)
             setReorderingAllowed(true)
             setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-            if(addToBackStack)
+            if (addToBackStack)
                 addToBackStack(fragment.javaClass.simpleName)
         }
     }
@@ -35,6 +38,28 @@ fun <T> T.setFragment(
     fragment: Fragment,
     @IdRes viewId: Int,
     addToBackStack: Boolean = false,
-)
-        where T : AppCompatActivity, T : AppActivityBase =
+) where T : AppCompatActivity, T : AppActivityBase =
     ActivityBaseUtils.setFragment(this, fragment, viewId, addToBackStack)
+
+fun <T> T.setupToolbar(
+    @IdRes toolbarId: Int,
+    @StringRes titleId: Int,
+    @StringRes subtitleId: Int? = null,
+) where T : AppCompatActivity, T : AppActivityBase =
+    setupToolbar(findViewById(toolbarId),
+        getString(titleId),
+        if (subtitleId != null) getString(subtitleId) else null)
+
+fun <T> T.setupToolbar(
+    toolbar: Toolbar,
+    title_: String,
+    subtitle_: String? = null,
+) where T : AppCompatActivity, T : AppActivityBase {
+    setSupportActionBar(toolbar)
+    supportActionBar?.run {
+        //setDisplayHomeAsUpEnabled(true)
+        //setHomeAsUpIndicator(R.drawable.ic_arrow_back_white_24dp)
+        title = title_
+        subtitle_?.let { subtitle = it }
+    }
+}

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Mapyt</string>
+    <string name="search_places">Buscar Lugares</string>
 </resources>

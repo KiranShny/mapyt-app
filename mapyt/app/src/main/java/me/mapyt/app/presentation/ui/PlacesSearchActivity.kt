@@ -5,6 +5,7 @@ import android.os.Bundle
 import me.mapyt.app.R
 import me.mapyt.app.presentation.base.AppActivityBase
 import me.mapyt.app.presentation.base.setFragment
+import me.mapyt.app.presentation.base.setupToolbar
 
 class PlacesSearchActivity : AppCompatActivity(), AppActivityBase {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,6 +15,7 @@ class PlacesSearchActivity : AppCompatActivity(), AppActivityBase {
     }
 
     private fun setup() {
-        setFragment(PlacesSearchFragment.newInstance(), R.id.search_container_view)
+        setupToolbar(R.id.toolbar, R.string.app_name, R.string.search_places)
+        setFragment(PlacesSearchFragment.newInstance(), R.id.searchContainerView)
     }
 }
