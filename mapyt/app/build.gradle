@@ -22,6 +22,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "GPLACES_KEY", appSettingsProps['GPLACES_KEY'])
+        manifestPlaceholders = [ googleKey:appSettingsProps['GMAPS_KEY']]
     }
 
     buildTypes {
@@ -53,6 +54,7 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.3.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation "com.google.android.gms:play-services-maps:$gmaps_version"
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
