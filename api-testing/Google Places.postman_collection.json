@@ -16,7 +16,11 @@
 							"\tajv = new Ajv({ logger: console });\r",
 							"\r",
 							"pm.test(\"Status code is 200\", () => {\r",
-							"\tpm.response.to.have.status(200);\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response status is OK\", () => {\r",
+							"\tpm.expect(pm.response.json().status).to.eql(\"OK\")\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Root response has a valid structure\", () => {\r",
@@ -264,6 +268,67 @@
 						{
 							"key": "photoreference",
 							"value": "{{PHOTO_REF_DEF}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get nearby places ERROR with invalid params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {\r",
+							"\tpm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response status is INVALID\", () => {\r",
+							"\tpm.expect(pm.response.json().status).to.eql(\"INVALID_REQUEST\")\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Root response has a valid structure\", () => {\r",
+							"\tpm.response.to.be.json;\r",
+							"\tconst jsonData = pm.response.json();\r",
+							"\tpm.expect(jsonData).to.be.an(\"object\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key={{G_API_KEY}}&location=INVALID&radius={{RAD_DEF}}",
+					"protocol": "https",
+					"host": [
+						"maps",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"maps",
+						"api",
+						"place",
+						"nearbysearch",
+						"json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{G_API_KEY}}"
+						},
+						{
+							"key": "location",
+							"value": "INVALID"
+						},
+						{
+							"key": "radius",
+							"value": "{{RAD_DEF}}"
 						}
 					]
 				}
