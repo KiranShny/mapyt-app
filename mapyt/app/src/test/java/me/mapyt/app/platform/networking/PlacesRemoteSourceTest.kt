@@ -1,6 +1,7 @@
 package me.mapyt.app.platform.networking
 
 import kotlinx.coroutines.runBlocking
+import me.mapyt.app.core.shared.InvalidResponseException
 import me.mapyt.app.platform.networking.places.PlacesRemoteSourceImpl
 import me.mapyt.app.platform.networking.places.PlacesService
 import me.mapyt.app.platform.utils.ApiTestHelper
@@ -34,7 +35,7 @@ class PlacesRemoteSourceTest {
     }
 
     @Test
-    fun `given api 200 response should retrieve nearby places successful`() {
+    fun `given api 200 response with valid params should return places`() {
         mockServer.enqueueResponse("nearbysearch-200.json", 200)
         val remoteSource = PlacesRemoteSourceImpl(service)
 
@@ -50,6 +51,16 @@ class PlacesRemoteSourceTest {
                 assertNotNull(geometry)
                 assertNotNull(geometry.location)
             }
+        }
+    }
+
+    @Test(expected = InvalidResponseException::class)
+    fun `given api 200 response with invalid params should return error`() {
+        mockServer.enqueueResponse("nearbysearch-invalid-200.json", 200)
+        val remoteSource = PlacesRemoteSourceImpl(service)
+
+        runBlocking {
+            val actual = remoteSource.searchNearby("0,0", 0)
         }
     }
 }
