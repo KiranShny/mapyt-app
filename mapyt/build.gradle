@@ -5,6 +5,9 @@ buildscript {
     ext.retrofit_version = "2.9.0"
     ext.gson_version = "2.8.6"
     ext.okhttp_version = "4.9.0"
+    ext.junit_version = "4.13.2"
+    ext.coroutines_test_version = "1.4.2"
+    ext.mockk_version = "1.10.6"
 
     repositories {
         google()
