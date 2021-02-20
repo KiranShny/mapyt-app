@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class NearbySearchResponse(
     @SerializedName("results") val results: List<PlaceResponse>,
+    @SerializedName("status") val status: String,
 )
 
 data class PlaceResponse(

@@ -10,3 +10,7 @@ object ApiConstants {
     const val PARAM_LOCATION = "location"
     const val PARAM_RADIUS = "radius"
 }
+
+object ApiStatus {
+    const val STATUS_OK = "OK"
+}
