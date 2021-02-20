@@ -6,8 +6,8 @@ import me.mapyt.app.core.shared.InvalidResponseException
 
 class PlacesRemoteSourceImpl(private val service: PlacesService) : PlacesRemoteSource {
 
-    override suspend fun searchNearby(location: String, radius: Int): List<Place> {
-        val response = service.searchNearby(location, radius)
+    override suspend fun searchNearby(keyword: String, location: String, radius: Int): List<Place> {
+        val response = service.searchNearby(keyword, location, radius)
         //TODO: mover a interceptor
         if(isInvalidStatus(response.status)) throw InvalidResponseException(response.status)
         return response.toPlaces()

@@ -7,6 +7,7 @@ object ApiConstants {
     const val RESOURCE_DETAILS = "details/json"
 
     const val PARAM_KEY = "key"
+    const val PARAM_KEYWORD = "keyword"
     const val PARAM_LOCATION = "location"
     const val PARAM_RADIUS = "radius"
 }

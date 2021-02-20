@@ -1,5 +1,6 @@
 package me.mapyt.app.platform.networking.places
 
+import me.mapyt.app.platform.networking.places.ApiConstants.PARAM_KEYWORD
 import me.mapyt.app.platform.networking.places.ApiConstants.PARAM_LOCATION
 import me.mapyt.app.platform.networking.places.ApiConstants.PARAM_RADIUS
 import me.mapyt.app.platform.networking.places.ApiConstants.RESOURCE_NEARBY
@@ -10,6 +11,7 @@ interface PlacesService {
 
     @GET(RESOURCE_NEARBY)
     suspend fun searchNearby(
+        @Query(PARAM_KEYWORD) keyword: String,
         @Query(PARAM_LOCATION) location: String,
         @Query(PARAM_RADIUS) radius: Int
     ): NearbySearchResponse

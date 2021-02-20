@@ -40,7 +40,7 @@ class PlacesRemoteSourceTest {
         val remoteSource = PlacesRemoteSourceImpl(service)
 
         runBlocking {
-            val actual = remoteSource.searchNearby("0,0", 0)
+            val actual = remoteSource.searchNearby("","0,0", 0)
             assertNotNull(actual)
             assertTrue(actual.isNotEmpty())
 
@@ -60,7 +60,7 @@ class PlacesRemoteSourceTest {
         val remoteSource = PlacesRemoteSourceImpl(service)
 
         runBlocking {
-            val actual = remoteSource.searchNearby("0,0", 0)
+            val actual = remoteSource.searchNearby("","0,0", 0)
         }
     }
 }

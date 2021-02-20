@@ -4,5 +4,5 @@ import me.mapyt.app.core.domain.entities.Place
 import me.mapyt.app.core.domain.entities.PlaceNearbySearch
 
 interface PlacesRemoteSource {
-    suspend fun searchNearby(location: String, radius: Int): List<Place>
+    suspend fun searchNearby(keyword: String, location: String, radius: Int): List<Place>
 }
