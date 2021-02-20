@@ -3,6 +3,10 @@ plugins {
     id 'kotlin-android'
 }
 
+def appSettingsPropsFile = rootProject.file("app_settings.properties")
+def appSettingsProps = new Properties()
+appSettingsProps.load(new FileInputStream(appSettingsPropsFile))
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -15,6 +19,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "GPLACES_KEY", appSettingsProps['GPLACES_KEY'])
     }
 
     buildTypes {
@@ -34,11 +40,19 @@ android {
 
 dependencies {
 
+    //TODO: revisar library especifica que usa kotlin 1.4.1 y validar si puede actualizarse.
+    //noinspection DifferentStdlibGradleVersion
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation "com.google.code.gson:gson:$gson_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
     implementation project(path: ':core')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
