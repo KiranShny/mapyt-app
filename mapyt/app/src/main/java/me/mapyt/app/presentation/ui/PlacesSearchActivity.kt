@@ -14,6 +14,9 @@ import me.mapyt.app.presentation.base.setupToolbar
 import timber.log.Timber
 
 class PlacesSearchActivity : AppCompatActivity(), AppActivityBase {
+
+    private lateinit var mSearchView: SearchView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_places_search)
@@ -26,6 +29,20 @@ class PlacesSearchActivity : AppCompatActivity(), AppActivityBase {
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onBackPressed() {
+        if (!hideSearchViewOnNavBack()) super.onBackPressed();
+    }
+
+    private fun hideSearchViewOnNavBack(): Boolean {
+        if(!this::mSearchView.isInitialized) {
+            Timber.e("mSearchView not initialized")
+            return false
+        }
+        if(mSearchView.isIconified) return false
+        mSearchView.onActionViewCollapsed()
+        return true
+    }
+
     private fun setup() {
         setupToolbar(R.id.toolbar, R.string.app_name, R.string.search_places)
         setFragment(PlacesSearchFragment.newInstance(), R.id.searchContainerView)
@@ -36,10 +53,10 @@ class PlacesSearchActivity : AppCompatActivity(), AppActivityBase {
             Timber.e("null searchMenuItem")
             return
         }
-        val searchView = searchMenuItem.actionView as? SearchView ?: return
-        with(searchView) {
+        mSearchView = searchMenuItem.actionView as? SearchView ?: return
+        with(mSearchView) {
             isActivated = false
-        
+
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     Timber.i("New query: %s", query)
