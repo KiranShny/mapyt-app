@@ -2,6 +2,9 @@
 <resources>
     <dimen name="spc_base">8dp</dimen>
     <dimen name="spc_2x">16dp</dimen>
+    <dimen name="spc_3x">32dp</dimen>
+    <dimen name="spc_4x">64dp</dimen>
     <dimen name="spc_2m">4dp</dimen>
     <dimen name="cover_img_default_height">160dp</dimen>
+    <dimen name="details_map_height">160dp</dimen>
 </resources>
