@@ -1,4 +1,4 @@
-package me.mapyt.app.presentation.base
+package me.mapyt.app.presentation.utils
 
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import me.mapyt.app.R
 
 interface AppActivityBase {}
 
