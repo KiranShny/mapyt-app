@@ -10,12 +10,16 @@ class GetPlacePhotoUseCase(
     private val repository: PlacesRepository,
     private val validator: PlacePhotoValidator = PlacePhotoValidator(),
 ) {
+    companion object {
+        const val DEFAULT_PHOTO_HEIGHT = 212
+    }
+
     operator fun invoke(photoReference: String): ResultOf<String> {
         val validationResult = validator(photoReference)
         if(validationResult.isFailure) return ResultOf.Failure(validationResult.throwable)
 
         return try {
-            ResultOf.Success(repository.getPhotoPath(photoReference))
+            ResultOf.Success(repository.getPhotoPath(photoReference, DEFAULT_PHOTO_HEIGHT))
         } catch (error: Throwable) {
             ResultOf.Failure(error)
         }

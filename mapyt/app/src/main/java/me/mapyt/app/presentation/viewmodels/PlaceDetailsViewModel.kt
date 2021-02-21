@@ -26,7 +26,6 @@ class PlaceDetailsViewModel(private val getPhotoPathUseCase: GetPlacePhotoUseCas
             _placeMaster.value = it
             _masterEvents.value = Event(LoadMaster(it))
             _coverImagePath.value = getCoverPhotoPath(it)
-            Timber.d(_coverImagePath.value)
         } ?: run {
             _masterEvents.value = Event(ShowMasterError(IllegalArgumentException("master")))
         }

@@ -3,5 +3,5 @@
     <dimen name="spc_base">8dp</dimen>
     <dimen name="spc_2x">16dp</dimen>
     <dimen name="spc_2m">4dp</dimen>
-    <dimen name="cover_img_default_height">200dp</dimen>
+    <dimen name="cover_img_default_height">160dp</dimen>
 </resources>
