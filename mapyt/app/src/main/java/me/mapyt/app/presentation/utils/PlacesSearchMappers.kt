@@ -23,4 +23,6 @@ internal fun Place.toMapPlace() =
         lng = geometry.location.lng,
         name = name,
         address = address,
-        rating = rating)
+        rating = rating,
+        photosRefs = photos?.map { photo -> photo.reference }
+    )

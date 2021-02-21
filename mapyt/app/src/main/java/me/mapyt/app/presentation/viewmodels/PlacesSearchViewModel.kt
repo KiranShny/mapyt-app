@@ -131,4 +131,6 @@ class PlacesSearchViewModel(private val searchPlacesUseCase: SearchNearbyPlacesU
         const val DEFAULT_ZOOM = 16.0F
         const val DEFAULT_KEYWORD_SEPARATOR = ","
     }
+
+    //fun MapPlace.photoUrl(): String = "ApiConstants"
 }

@@ -1,6 +1,7 @@
 package me.mapyt.app.platform.networking.places
 
 import me.mapyt.app.BuildConfig
+import me.mapyt.app.platform.networking.places.ApiConstants.API_KEY
 import me.mapyt.app.platform.networking.places.ApiConstants.BASE_API_URL
 import me.mapyt.app.platform.networking.places.ApiConstants.PARAM_KEY
 import okhttp3.Interceptor
@@ -11,8 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    //TODO: volver ApiClient una class y pasar key como param.
-    private val API_KEY = BuildConfig.GPLACES_KEY
+
 
     private val httpClient = OkHttpClient.Builder().apply {
         this.addInterceptor(

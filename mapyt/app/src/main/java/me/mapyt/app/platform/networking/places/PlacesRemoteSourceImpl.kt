@@ -9,7 +9,13 @@ class PlacesRemoteSourceImpl(private val service: PlacesService) : PlacesRemoteS
     override suspend fun searchNearby(keyword: String, location: String, radius: Int): List<Place> {
         val response = service.searchNearby(keyword, location, radius)
         //TODO: mover a interceptor
-        if(isInvalidStatus(response.status)) throw InvalidResponseException(response.status)
+        if (isInvalidStatus(response.status)) throw InvalidResponseException(response.status)
         return response.toPlaces()
+    }
+
+    override fun getPhotoPath(reference: String): String {
+        return "${ApiConstants.BASE_API_URL}${ApiConstants.RESOURCE_PHOTO_FILE}?" +
+                "${ApiConstants.PARAM_KEY}=${ApiConstants.API_KEY}&" +
+                "${ApiConstants.PARAM_PHOTO_REF}=${reference}"
     }
 }

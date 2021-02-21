@@ -13,5 +13,7 @@ class PlacesRepository(private val remoteSource: PlacesRemoteSource) {
         return remoteSource.searchNearby(joinKeywords(keywords), location, radius)
     }
 
+    fun getPhotoPath(reference: String) = remoteSource.getPhotoPath(reference)
+
     private fun joinKeywords(keywords: List<String>) = keywords.joinToString(KEYWORD_SEPARATOR)
 }

@@ -19,5 +19,6 @@ data class MapPlace(
     val lng: Double,
     val name: String? = null,
     val address: String? = null,
-    val rating: Double? = null
+    val rating: Double? = null,
+    val photosRefs: List<String>? = null,
 ) : Parcelable

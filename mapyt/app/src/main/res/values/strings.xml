@@ -8,4 +8,5 @@
     <string name="problem_loading_map">Disculpe, ha ocurrido un error al cargar el mapa, favor reinicie la app</string>
     <string name="unknown_error">Disculpe, ha ocurrido un error desconocido</string>
     <string name="found_places">%1$d lugares encontrados</string>
+    <string name="place_details_title">Sobre el Lugar</string>
 </resources>
