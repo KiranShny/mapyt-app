@@ -1,11 +1,25 @@
 package me.mapyt.app.presentation.utils
 
+import android.app.Activity
+import android.view.View
+import android.view.WindowManager
+import android.widget.ProgressBar
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import me.mapyt.app.R
+
+fun Activity.setTouchEnabled(isEnabled: Boolean) {
+    if(isEnabled) {
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+    } else {
+        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+    }
+}
 
 interface AppActivityBase {}
 
