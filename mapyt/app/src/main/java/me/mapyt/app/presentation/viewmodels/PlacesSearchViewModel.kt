@@ -23,12 +23,16 @@ class PlacesSearchViewModel(private val searchPlacesUseCase: SearchNearbyPlacesU
     ViewModel(), SearchViewBindingAdapter.OnSearchQuerySubmit,
     SearchViewBindingAdapter.OnSearchQueryChange {
     private var currentUserPosition: UserPosition = getDefaultPosition()
+    private var currentPlaces: List<Place>? = null
 
     private val _placesEvents = MutableLiveData<Event<SearchPlacesState>>()
     val placesEvents: LiveData<Event<SearchPlacesState>> get() = _placesEvents
 
     private val _loadUserPosition = MutableLiveData<Event<UserPosition>>()
     val loadUserPosition: LiveData<Event<UserPosition>> get() = _loadUserPosition
+
+    private val _navigateToPlaceDetails = MutableLiveData<Event<MapPlace>>()
+    val navigateToPlaceDetails: LiveData<Event<MapPlace>> get() = _navigateToPlaceDetails
 
     override fun onSearchQuerySubmit(query: String?): Boolean {
         onSubmitKeywords(query)
@@ -58,10 +62,13 @@ class PlacesSearchViewModel(private val searchPlacesUseCase: SearchNearbyPlacesU
         triggerLoadUserPosition()
     }
 
-    fun onMapPlaceSelected(selectedPlace: MapPlace): Boolean {
-        Timber.d("selectedPlace %s", selectedPlace.toString())
-        //TODO: presentar un dialogo en lugar de infoWindow para mejor UI
-        return false
+    fun onMapPlaceDetailsSelected(selectedPlaceCode: String) {
+        val selectedPlace = currentPlaces?.firstOrNull { it.placeId == selectedPlaceCode }
+        selectedPlace?.let {
+            _navigateToPlaceDetails.value = Event(it.toMapPlace())
+        } ?: run {
+            Timber.e("selected place not found")
+        }
     }
 
     private fun onSubmitKeywords(keywords: String?) {
@@ -80,6 +87,7 @@ class PlacesSearchViewModel(private val searchPlacesUseCase: SearchNearbyPlacesU
             withContext(Dispatchers.Main) {
                 when (searchResult) {
                     is ResultOf.Success<List<Place>> -> {
+                        currentPlaces = searchResult.value
                         _placesEvents.value = Event(HideLoading)
                         _placesEvents.value = Event(LoadPlaces(
                             searchResult.value.map { it.toMapPlace() }

@@ -1,11 +1,11 @@
 package me.mapyt.app.presentation.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,11 +18,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.snackbar.Snackbar
 import me.mapyt.app.R
 import me.mapyt.app.databinding.FragmentPlacesSearchBindingImpl
 import me.mapyt.app.presentation.utils.*
-import me.mapyt.app.presentation.utils.toPlace
 import me.mapyt.app.presentation.viewmodels.MainViewModelFactory
 import me.mapyt.app.presentation.viewmodels.MapPlace
 import me.mapyt.app.presentation.viewmodels.PlacesSearchViewModel
@@ -32,11 +30,12 @@ import me.mapyt.app.presentation.viewmodels.UserPosition
 import timber.log.Timber
 
 class PlacesSearchFragment : Fragment(), AppFragmentBase,
-    OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
+    OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapClickListener {
 
     private val viewModel: PlacesSearchViewModel by lazy {
         ViewModelProvider(this, MainViewModelFactory).get(PlacesSearchViewModel::class.java)
     }
+    private lateinit var mListener: OnPlaceSearchFragmentListener
     private lateinit var binding: FragmentPlacesSearchBindingImpl
 
     private lateinit var mMap: GoogleMap
@@ -62,10 +61,19 @@ class PlacesSearchFragment : Fragment(), AppFragmentBase,
         setup()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            mListener = context as OnPlaceSearchFragmentListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException("$context must implement OnPlaceSearchFragmentListener")
+        }
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        mMap.setOnMarkerClickListener(this)
         mMap.setOnMapClickListener(this)
+        mMap.setOnInfoWindowClickListener(this)
         viewModel.onMapReady()
     }
 
@@ -73,10 +81,9 @@ class PlacesSearchFragment : Fragment(), AppFragmentBase,
         viewModel.onNewCoordsSelected(coords.latitude, coords.longitude)
     }
 
-    override fun onMarkerClick(selectedMarker: Marker): Boolean {
-        //por ahora no se hace nada con seleccionar el marker del usuario
-        if (isUserMarker(selectedMarker)) return false
-        return viewModel.onMapPlaceSelected(selectedMarker.toPlace())
+    override fun onInfoWindowClick(selectedMarker: Marker) {
+        if (isUserMarker(selectedMarker)) return
+        viewModel.onMapPlaceDetailsSelected(selectedMarker.tag.toString())
     }
 
     private fun setup() {
@@ -96,6 +103,9 @@ class PlacesSearchFragment : Fragment(), AppFragmentBase,
             it.getContentIfNotHandled()?.let(::setUserPositionMarker)
         })
         viewModel.placesEvents.observe(viewLifecycleOwner, Observer(this::validatePlacesEvents))
+        viewModel.navigateToPlaceDetails.observe(viewLifecycleOwner, {
+            it.getContentIfNotHandled()?.let(::navigateToDetails)
+        })
     }
 
     private fun setUserPositionMarker(userPosition: UserPosition) {
@@ -137,12 +147,16 @@ class PlacesSearchFragment : Fragment(), AppFragmentBase,
 
     private fun loadMarkersWithModel(places: List<MapPlace>) {
         MessageBar.showInfo(context, binding.root, getString(R.string.found_places, places.size))
-        if(shouldShowMapError()) return
+        if (shouldShowMapError()) return
         clearMapComponents()
         places.forEach { place ->
             val marker = mMap.addMarker(place.toMarkerOpts())
             marker.tag = place.code
         }
+    }
+
+    private fun navigateToDetails(place: MapPlace) {
+        mListener.navigateToPlaceDetails(place)
     }
 
     private fun isUserMarker(marker: Marker) = mUserMarker?.tag == marker.tag ?: false
@@ -159,6 +173,10 @@ class PlacesSearchFragment : Fragment(), AppFragmentBase,
         mMap.clear()
         mUserMarker = null
         viewModel.onMapCleared()
+    }
+
+    interface OnPlaceSearchFragmentListener {
+        fun navigateToPlaceDetails(place: MapPlace)
     }
 
     companion object {

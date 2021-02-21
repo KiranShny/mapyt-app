@@ -1,5 +1,7 @@
 package me.mapyt.app.presentation.viewmodels
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import me.mapyt.app.core.domain.entities.Place
 
 data class UserPosition(
@@ -10,4 +12,12 @@ data class UserPosition(
     val title: String? = null,
 )
 
-data class MapPlace(val code: String, val lat: Double, val lng: Double, val name: String? = null)
+@Parcelize
+data class MapPlace(
+    val code: String,
+    val lat: Double,
+    val lng: Double,
+    val name: String? = null,
+    val address: String? = null,
+    val rating: Double? = null
+) : Parcelable
