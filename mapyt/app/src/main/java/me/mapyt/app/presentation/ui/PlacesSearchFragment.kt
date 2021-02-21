@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import me.mapyt.app.R
 import me.mapyt.app.databinding.FragmentPlacesSearchBindingImpl
 import me.mapyt.app.presentation.utils.*
@@ -160,7 +162,15 @@ class PlacesSearchFragment : Fragment(), AppFragmentBase,
     }
 
     private fun showError(message: String?) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        val text = message ?: getString(R.string.unknown_error)
+        val snackbar = Snackbar
+            .make(binding.root, text, Snackbar.LENGTH_LONG)
+        context?.let { ctx ->
+            snackbar.view.setBackgroundColor(
+                ContextCompat.getColor(ctx, R.color.colorOnError)
+            )
+        }
+        snackbar.show()
     }
 
     companion object {

@@ -10,6 +10,8 @@ class NearbyPlacesSearchValidator {
         return params?.let {
             if (it.keywords.isEmpty())
                 return ResultOf.Failure(DomainValidationException("Favor ingrese al menos una palabra clave"))
+            if(it.keywords.any { keyword -> keyword.length < 2 })
+                return ResultOf.Failure(DomainValidationException("Las palabras claves deben tener al menos 2 caracteres"))
             //TODO: validar formato de coordenadas
             if (it.location.trim().isEmpty())
                 return ResultOf.Failure(DomainValidationException("No se ha logrado obtener la ubicación"))

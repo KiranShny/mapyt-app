@@ -6,4 +6,5 @@
     <string name="search_status_placeholder">Podés hacer tap en alguna parte del mapa para buscar puntos cercanos</string>
     <string name="you_are_here">¡Estás aquí!</string>
     <string name="problem_loading_map">Disculpe, ha ocurrido un error al cargar el mapa, favor reinicie la app</string>
+    <string name="unknown_error">Disculpe, ha ocurrido un error desconocido</string>
 </resources>
