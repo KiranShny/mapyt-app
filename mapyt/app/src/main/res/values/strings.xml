@@ -9,4 +9,6 @@
     <string name="unknown_error">Disculpe, ha ocurrido un error desconocido</string>
     <string name="found_places">%1$d lugares encontrados</string>
     <string name="place_details_title">Sobre el Lugar</string>
+    <string name="place_details_title_with_name">Acerca de %1$s</string>
+    <string name="rating">Rating</string>
 </resources>

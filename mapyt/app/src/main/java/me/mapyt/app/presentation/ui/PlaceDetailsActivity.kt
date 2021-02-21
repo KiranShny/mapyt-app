@@ -69,6 +69,6 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase {
     }
 
     private fun showMasterInfo(master: MapPlace) {
-        supportActionBar?.title = master.name
+        supportActionBar?.title = getString(R.string.place_details_title_with_name, master.name)
     }
 }
