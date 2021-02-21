@@ -122,7 +122,9 @@ class PlacesSearchFragment : Fragment(), AppFragmentBase,
         event?.getContentIfNotHandled()?.let { state ->
             when (state) {
                 is LoadPlaces -> state.run { loadMarkersWithModel(places) }
-                is ShowPlacesError -> state.run { showError(error.message) }
+                is ShowPlacesError -> state.run {
+                    MessageBar.showError(context, binding.root, error.message)
+                }
                 ShowLoading -> {
                     toggleProgress(binding.root, true)
                 }
@@ -134,9 +136,7 @@ class PlacesSearchFragment : Fragment(), AppFragmentBase,
     }
 
     private fun loadMarkersWithModel(places: List<MapPlace>) {
-        Toast.makeText(context,
-            "Lugares encontrados: ${places.size}",
-            Toast.LENGTH_SHORT).show()
+        MessageBar.showInfo(context, binding.root, getString(R.string.found_places, places.size))
         if(shouldShowMapError()) return
         clearMapComponents()
         places.forEach { place ->
@@ -159,18 +159,6 @@ class PlacesSearchFragment : Fragment(), AppFragmentBase,
         mMap.clear()
         mUserMarker = null
         viewModel.onMapCleared()
-    }
-
-    private fun showError(message: String?) {
-        val text = message ?: getString(R.string.unknown_error)
-        val snackbar = Snackbar
-            .make(binding.root, text, Snackbar.LENGTH_LONG)
-        context?.let { ctx ->
-            snackbar.view.setBackgroundColor(
-                ContextCompat.getColor(ctx, R.color.colorOnError)
-            )
-        }
-        snackbar.show()
     }
 
     companion object {

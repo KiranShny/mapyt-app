@@ -7,6 +7,7 @@
     <color name="colorSecondaryVariantLight">@color/yellow_700</color>
     <color name="colorOnSecondaryLight">@color/black</color>
     <color name="colorOnError">@color/orange_500</color>
+    <color name="colorOnInfo">@color/blue_500</color>
 
     <color name="green_500">#28df99</color>
     <color name="green_700">#06BF79</color>
@@ -16,4 +17,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray_200">#E6E6E6</color>
     <color name="orange_500">#FF5722</color>
+    <color name="blue_500">#03A9F4</color>
 </resources>
