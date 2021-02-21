@@ -6,8 +6,6 @@ Con esta app podrás encontrar y guardar puntos de interés de manera rápida y 
 
 [Obtener APK](resources/app-debug.apk)
 
-![Screenshot 1](http://soyjimmysaenz.github.io/mapyt-app/resources/sc1.jpg)
-
 ## Tech Stack
 
 Kotlin, XML, Google Play Services, Timber, LiveData, ViewModel, GSON, Retrofit, Picasso, JUnit, Mockk...
@@ -58,6 +56,10 @@ GMAPS_KEY={LLAVE PARA GOOGLE MAPS}
 - [ ] Mejorar UI de markers en mapa
 - [ ] Mejorar organización (por feature)
 - [ ] Soportar Dark Mode
+
+## Screenshots
+
+![Screenshot 1](https://github.com/soyjimmysaenz/mapyt-app/blob/main/resources/sc1.jpg)
 
 ---
 
