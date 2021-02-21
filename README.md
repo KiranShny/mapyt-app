@@ -2,7 +2,7 @@
 
 Con esta app podrás encontrar y guardar puntos de interés de manera rápida y sencilla.
 
-# Descargar 
+## Descargar 
 
 [Obtener APK](resources/app-debug.apk)
 
