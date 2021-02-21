@@ -15,8 +15,6 @@ import timber.log.Timber
 
 class PlacesSearchActivity : AppCompatActivity(), AppActivityBase {
 
-    private lateinit var mSearchView: SearchView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_places_search)
@@ -25,22 +23,7 @@ class PlacesSearchActivity : AppCompatActivity(), AppActivityBase {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_places_search, menu)
-        setupSearchViewFromMenuItem(menu.findItem(R.id.searchMenuItem))
         return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onBackPressed() {
-        if (!hideSearchViewOnNavBack()) super.onBackPressed();
-    }
-
-    private fun hideSearchViewOnNavBack(): Boolean {
-        if(!this::mSearchView.isInitialized) {
-            Timber.e("mSearchView not initialized")
-            return false
-        }
-        if(mSearchView.isIconified) return false
-        mSearchView.onActionViewCollapsed()
-        return true
     }
 
     private fun setup() {
@@ -48,25 +31,4 @@ class PlacesSearchActivity : AppCompatActivity(), AppActivityBase {
         setFragment(PlacesSearchFragment.newInstance(), R.id.searchContainerView)
     }
 
-    private fun setupSearchViewFromMenuItem(searchMenuItem: MenuItem?) {
-        if(searchMenuItem == null) {
-            Timber.e("null searchMenuItem")
-            return
-        }
-        mSearchView = searchMenuItem.actionView as? SearchView ?: return
-        with(mSearchView) {
-            isActivated = false
-
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    Timber.i("New query: %s", query)
-                    return false
-                }
-
-                override fun onQueryTextChange(newText: String): Boolean {
-                    return false
-                }
-            })
-        }
-    }
 }

@@ -20,4 +20,21 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
+    <style name="AppTheme.AppSearchView.Base" parent="Widget.AppCompat.Light.SearchView">
+        <item name="android:background">@color/gray_200</item>
+        <item name="android:layout_margin">@dimen/spc_2x</item>
+    </style>
+
+    <style name="AppTheme.AppSearchView.Main" parent="AppTheme.AppSearchView.Base">
+    </style>
+
+    <style name="AppTheme.InfoCardView" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/spc_2x</item>
+        <item name="cornerSizeTopRight">@dimen/spc_2x</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
 </resources>

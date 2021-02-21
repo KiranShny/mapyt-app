@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Mapyt</string>
     <string name="search_places">Buscar Lugares</string>
+    <string name="my_places">Mis Lugares</string>
+    <string name="places_search_placeholder">Buscá por palabras claves</string>
+    <string name="search_status_placeholder">Podés hacer tap en alguna parte del mapa para encontrar puntos</string>
 </resources>

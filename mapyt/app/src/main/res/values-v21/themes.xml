@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.AppSearchView.Main" parent="AppTheme.AppSearchView.Base">
+        <item name="android:elevation">@dimen/spc_2m</item>
+    </style>
+</resources>
