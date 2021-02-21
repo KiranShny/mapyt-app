@@ -7,20 +7,20 @@ import androidx.databinding.BindingAdapter
 object SearchViewBindingAdapter {
     @JvmStatic
     @BindingAdapter("onQueryTextChange")
-    fun setonQueryTextChangeListener(view: SearchView, listener: OnQueryTextChange?) {
+    fun setonQueryTextChangeListener(view: SearchView, listener: OnSearchQueryChange?) {
         setBaseListener(view, null, listener)
     }
 
     @JvmStatic
     @BindingAdapter("onQueryTextSubmit")
-    fun setOnQueryTextSubmitListener(view: SearchView, listener: OnQueryTextSubmit?) {
+    fun setOnQueryTextSubmitListener(view: SearchView, listener: OnSearchQuerySubmit?) {
         setBaseListener(view, listener, null)
     }
 
     @JvmStatic
     @BindingAdapter("onQueryTextSubmit", "onQueryTextChange")
     fun setBaseListener(
-        view: SearchView, submit: OnQueryTextSubmit?, change: OnQueryTextChange?,
+        view: SearchView, submit: OnSearchQuerySubmit?, change: OnSearchQueryChange?,
     ) {
         if (submit == null && change == null) {
             view.setOnQueryTextListener(null)
@@ -37,11 +37,11 @@ object SearchViewBindingAdapter {
         }
     }
 
-    interface OnQueryTextSubmit {
+    interface OnSearchQuerySubmit {
         fun onSearchQuerySubmit(query: String?): Boolean
     }
 
-    interface OnQueryTextChange {
+    interface OnSearchQueryChange {
         fun onSearchQueryChange(newText: String?): Boolean
     }
 }

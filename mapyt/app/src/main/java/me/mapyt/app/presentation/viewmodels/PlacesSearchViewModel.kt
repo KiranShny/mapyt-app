@@ -1,21 +1,34 @@
 package me.mapyt.app.presentation.viewmodels
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import me.mapyt.app.R
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import me.mapyt.app.core.domain.entities.Place
+import me.mapyt.app.core.domain.usecases.NearbyPlacesSearchParams
+import me.mapyt.app.core.domain.usecases.SearchNearbyPlacesUseCase
+import me.mapyt.app.core.shared.ResultOf
+import me.mapyt.app.core.shared.throwable
 import me.mapyt.app.presentation.binding.SearchViewBindingAdapter
 import me.mapyt.app.presentation.utils.Event
+import me.mapyt.app.presentation.utils.toMapPlace
+import me.mapyt.app.presentation.viewmodels.PlacesSearchViewModel.SearchPlacesState.*
+import me.mapyt.app.utils.uniqueId
 import timber.log.Timber
 
-class PlacesSearchViewModel : ViewModel(), SearchViewBindingAdapter.OnQueryTextSubmit,
-    SearchViewBindingAdapter.OnQueryTextChange {
-    private val _currentKeywords = MutableLiveData<String?>(null)
-    val currentModel: LiveData<String?> = _currentKeywords
+class PlacesSearchViewModel(private val searchPlacesUseCase: SearchNearbyPlacesUseCase) :
+    ViewModel(), SearchViewBindingAdapter.OnSearchQuerySubmit,
+    SearchViewBindingAdapter.OnSearchQueryChange {
+    private var currentUserPosition: UserPosition = getDefaultPosition()
 
-    private val _loadDefaultPosition = MutableLiveData<Event<UserPosition>>()
-    val loadDefaultPosition : LiveData<Event<UserPosition>> get() = _loadDefaultPosition
+    private val _placesEvents = MutableLiveData<Event<SearchPlacesState>>()
+    val placesEvents: LiveData<Event<SearchPlacesState>> get() = _placesEvents
+
+    private val _loadUserPosition = MutableLiveData<Event<UserPosition>>()
+    val loadUserPosition: LiveData<Event<UserPosition>> get() = _loadUserPosition
 
     override fun onSearchQuerySubmit(query: String?): Boolean {
         onSubmitKeywords(query)
@@ -23,9 +36,8 @@ class PlacesSearchViewModel : ViewModel(), SearchViewBindingAdapter.OnQueryTextS
     }
 
     override fun onSearchQueryChange(newText: String?): Boolean {
-        if (newText.isNullOrEmpty()) {
-            Timber.d("text cleared ${newText == ""}")
-        }
+        //TODO: con newText.isNullOrEmpty() se podria validar si no hay query ingresada y
+        //volver al estado original de la pantalla
         return false
     }
 
@@ -34,21 +46,81 @@ class PlacesSearchViewModel : ViewModel(), SearchViewBindingAdapter.OnQueryTextS
     }
 
     fun onMapReady() {
-        _loadDefaultPosition.value = Event(getDefaultPosition())
+        triggerLoadUserPosition()
+    }
+
+    fun onMapCleared() {
+        triggerLoadUserPosition()
+    }
+
+    fun onNewCoordsSelected(lat: Double, lng: Double) {
+        currentUserPosition = currentUserPosition.copy(lat = lat, lng = lng)
+        triggerLoadUserPosition()
+    }
+
+    fun onMapPlaceSelected(selectedPlace: MapPlace): Boolean {
+        Timber.d("selectedPlace %s", selectedPlace.toString())
+        //TODO: presentar un dialogo en lugar de infoWindow para mejor UI
+        return false
     }
 
     private fun onSubmitKeywords(keywords: String?) {
-        Timber.d("New keywords: %s", keywords)
-        _currentKeywords.value = keywords
+        Timber.d("new keywords: %s", keywords)
+        searchPlaces(keywords, currentUserPosition)
+    }
+
+    private fun searchPlaces(keywords: String?, userPosition: UserPosition) {
+        _placesEvents.value = Event(ShowLoading)
+        //TODO: mover scope a use case
+        viewModelScope.launch(Dispatchers.IO) {
+            val searchResult = searchPlacesUseCase(NearbyPlacesSearchParams(
+                keywords = splitKeywords(keywords),
+                location = mergeCoords(userPosition.lat, userPosition.lng),
+            ))
+            withContext(Dispatchers.Main) {
+                when (searchResult) {
+                    is ResultOf.Success<List<Place>> -> {
+                        _placesEvents.value = Event(HideLoading)
+                        _placesEvents.value = Event(LoadPlaces(
+                            searchResult.value.map { it.toMapPlace() }
+                        ))
+                    }
+                    else -> {
+                        _placesEvents.value = Event(HideLoading)
+                        _placesEvents.value =
+                            Event(ShowPlacesError(searchResult.throwable))
+                    }
+                }
+            }
+        }
+    }
+
+    private fun triggerLoadUserPosition(userPosition: UserPosition = currentUserPosition) {
+        _loadUserPosition.value = Event(userPosition)
     }
 
     private fun getDefaultPosition() =
-        UserPosition(12.10629123798485, -86.24891870346221, 16.0F, R.string.you_are_here)
-}
+        UserPosition(
+            uniqueId(),
+            12.10629123798485,
+            -86.24891870346221,
+            DEFAULT_ZOOM
+        )
 
-data class UserPosition(
-    val lat: Double,
-    val lng: Double,
-    val zoomLevel: Float,
-    @StringRes val messageId: Int,
-)
+    private fun splitKeywords(keywords: String?) =
+        keywords?.split(DEFAULT_KEYWORD_SEPARATOR)?.map { it.trim() } ?: emptyList()
+
+    private fun mergeCoords(latitude: Double, longitude: Double) = "${latitude},${longitude}"
+
+    sealed class SearchPlacesState {
+        data class LoadPlaces(val places: List<MapPlace>) : SearchPlacesState()
+        data class ShowPlacesError(val error: Throwable) : SearchPlacesState()
+        object HideLoading : SearchPlacesState()
+        object ShowLoading : SearchPlacesState()
+    }
+
+    companion object {
+        const val DEFAULT_ZOOM = 16.0F
+        const val DEFAULT_KEYWORD_SEPARATOR = ","
+    }
+}
