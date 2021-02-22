@@ -23,7 +23,6 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
 
     companion object {
         const val PLACE_PARAM = "place"
-        private const val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
     }
 
     private val viewModel: PlaceDetailsViewModel by lazy {
@@ -31,7 +30,6 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
     }
 
     private lateinit var mMap: GoogleMap
-    private lateinit var mapView: MapView
     private lateinit var binding: ActivityPlaceDetailsBindingImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,49 +43,6 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
     override fun onMapReady(map: GoogleMap) {
         mMap = map
         setupMapBinding(mMap)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val mapViewBundle = outState.getBundle(MAPVIEW_BUNDLE_KEY) ?: Bundle().also {
-            outState.putBundle(MAPVIEW_BUNDLE_KEY, it)
-        }
-        mapView.onSaveInstanceState(mapViewBundle)
-    }
-
-    /*
-    * Se optó por implementar de forma básica MapView en lugar de Fragment
-    * para tratar de optimizar el rendimiento, es por esta razón que también se usa modo lite (ver xml)
-    * TODO: mover esto a 1 fragment y aplicar más optimizaciones allí.
-    * */
-    override fun onResume() {
-        super.onResume()
-        mapView.onResume()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        mapView.onStart()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mapView.onStop()
-    }
-
-    override fun onPause() {
-        mapView.onPause()
-        super.onPause()
-    }
-
-    override fun onDestroy() {
-        mapView.onDestroy()
-        super.onDestroy()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        mapView.onLowMemory()
     }
 
     private fun setup(savedInstanceState: Bundle?) {
@@ -111,10 +66,9 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
     }
 
     private fun setupMapView(savedInstanceState: Bundle?) {
-        val mapViewBundle = savedInstanceState?.getBundle(MAPVIEW_BUNDLE_KEY)
-        mapView = findViewById(R.id.details_map)
-        mapView.onCreate(mapViewBundle)
-        mapView.getMapAsync(this)
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.detailsMap) as SupportMapFragment
+        mapFragment.getMapAsync(this)
     }
 
     private fun setupSubscriptions() {
