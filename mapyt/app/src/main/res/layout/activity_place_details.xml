@@ -36,56 +36,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cvRating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/spc_2x"
-            android:layout_marginEnd="@dimen/spc_2x"
-            android:clickable="false"
-            app:cardElevation="0dp"
-            app:layout_constraintEnd_toStartOf="@id/tvTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvTitle"
-            app:strokeColor="@color/colorForPlaceholder"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/spc_base">
-                <TextView
-                    android:id="@+id/tvRating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewmodel.placeMaster.rating.toString()}"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                    tools:text="5.0" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/rating"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spc_2x"
-            android:layout_marginEnd="@dimen/spc_2x"
+            android:layout_margin="@dimen/spc_2x"
             android:ellipsize="marquee"
             android:maxLines="2"
             android:text="@{viewmodel.placeMaster.name}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cvRating"
+            app:layout_constraintEnd_toStartOf="@id/chRating"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivCover"
             tools:text="@tools:sample/lorem" />
 
@@ -100,27 +61,51 @@
             app:layout_constraintEnd_toEndOf="@id/tvTitle"
             app:layout_constraintStart_toStartOf="@id/tvTitle"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"
-            tools:text="@tools:sample/lorem/random" />
+            tools:text="@tools:sample/lorem" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewmodel.placeMaster.rating.toString()}"
+            android:textAppearance="@style/AppTheme.Chip.Title1"
+            android:layout_marginEnd="@dimen/spc_2x"
+            app:chipIcon="@drawable/ic_baseline_star_border_24"
+            app:chipBackgroundColor="@color/yellow_100"
+            app:rippleColor="@color/yellow_500"
+            app:chipStrokeWidth="1dp"
+            app:chipStrokeColor="@color/yellow_300"
+            app:layout_constraintTop_toTopOf="@id/tvTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="5.0"
+            />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrierMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:barrierMargin="@dimen/spc_2x"
-            app:constraint_referenced_ids="cvRating,tvAddress" />
+            app:constraint_referenced_ids="tvAddress,chRating"
+            />
+
+        <Space
+            android:id="@+id/spaceMap"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/spc_2x"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/barrierMap" />
 
         <fragment
             android:id="@+id/detailsMap"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="0dp"
             android:layout_height="@dimen/details_map_height"
-            app:liteMode="true"
-            app:layout_constraintTop_toTopOf="@id/barrierMap"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="FragmentTagUsage"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spaceMap"
+            app:liteMode="true"
+            tools:ignore="FragmentTagUsage" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

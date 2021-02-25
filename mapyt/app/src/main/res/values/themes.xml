@@ -37,4 +37,8 @@
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
 
+    <style name="AppTheme.Chip.Title1" parent="@style/TextAppearance.MaterialComponents.Body1">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
