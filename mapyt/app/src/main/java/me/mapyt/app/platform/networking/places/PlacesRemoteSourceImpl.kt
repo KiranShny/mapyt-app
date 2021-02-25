@@ -2,6 +2,7 @@ package me.mapyt.app.platform.networking.places
 
 import me.mapyt.app.core.data.PlacesRemoteSource
 import me.mapyt.app.core.domain.entities.Place
+import me.mapyt.app.core.domain.entities.PlaceDetails
 import me.mapyt.app.core.shared.InvalidResponseException
 
 class PlacesRemoteSourceImpl(private val service: PlacesService) : PlacesRemoteSource {
@@ -11,6 +12,12 @@ class PlacesRemoteSourceImpl(private val service: PlacesService) : PlacesRemoteS
         //TODO: mover a interceptor
         if (isInvalidStatus(response.status)) throw InvalidResponseException(response.status)
         return response.toPlaces()
+    }
+
+    override suspend fun getDetails(id: String): PlaceDetails {
+        val response = service.getDetails(id)
+        if(isInvalidStatus(response.status)) throw InvalidResponseException(response.status)
+        return response.toPlaceDetails()
     }
 
     override fun getPhotoPath(reference: String, maxHeight: Int): String {

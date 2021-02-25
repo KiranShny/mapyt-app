@@ -17,6 +17,8 @@ object ApiConstants {
     const val PARAM_RADIUS = "radius"
     const val PARAM_PHOTO_REF = "photoreference"
     const val PARAM_PHOTO_MAX_HEIGHT = "maxheight"
+
+    const val PARAM_PLACE_ID = "place_id"
 }
 
 object ApiStatus {

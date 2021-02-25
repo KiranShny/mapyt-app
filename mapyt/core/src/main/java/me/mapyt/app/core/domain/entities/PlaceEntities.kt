@@ -28,3 +28,23 @@ data class PlacePhoto(
     val height: Double,
     val width: Double,
 )
+
+data class PlaceDetails(
+    val geometry: PlaceGeometry,
+    val placeId: String,
+    val name: String,
+    val address: String?,
+    val rating: Double?,
+    val userRatingsTotal: Double?,
+    val reviews: List<PlaceReview>,
+    val photos: List<PlacePhoto>?,
+)
+
+data class PlaceReview(
+    val authorName: String,
+    val authorPhotoUrl: String?,
+    val rating: Double,
+    val content: String,
+    val timeDescription: String,
+    val time: Int,
+)

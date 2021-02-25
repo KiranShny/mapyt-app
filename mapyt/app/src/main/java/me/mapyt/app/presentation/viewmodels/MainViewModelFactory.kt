@@ -3,6 +3,7 @@ package me.mapyt.app.presentation.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import me.mapyt.app.core.data.PlacesRepository
+import me.mapyt.app.core.domain.usecases.GetPlaceDetailsUseCase
 import me.mapyt.app.core.domain.usecases.GetPlacePhotoUseCase
 import me.mapyt.app.core.domain.usecases.SearchNearbyPlacesUseCase
 import me.mapyt.app.platform.networking.places.ApiClient
@@ -24,11 +25,12 @@ object MainViewModelFactory : ViewModelProvider.Factory {
                 )
         }
         if (PlaceDetailsViewModel::class.java.isAssignableFrom(modelClass)) {
+            val repository = PlacesRepository(
+                PlacesRemoteSourceImpl(ApiClient.service)
+            )
             return modelClass
-                .getConstructor(GetPlacePhotoUseCase::class.java)
-                .newInstance(GetPlacePhotoUseCase(PlacesRepository(
-                    PlacesRemoteSourceImpl(ApiClient.service)
-                )))
+                .getConstructor(GetPlacePhotoUseCase::class.java, GetPlaceDetailsUseCase::class.java)
+                .newInstance(GetPlacePhotoUseCase(repository), GetPlaceDetailsUseCase(repository))
         }
 
         throw IllegalStateException("El ViewModel solicitado no fue encontrado");

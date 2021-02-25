@@ -10,11 +10,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import me.mapyt.app.R
+import me.mapyt.app.core.domain.entities.PlaceDetails
 import me.mapyt.app.databinding.ActivityPlaceDetailsBindingImpl
 import me.mapyt.app.presentation.utils.*
 import me.mapyt.app.presentation.viewmodels.MainViewModelFactory
 import me.mapyt.app.presentation.viewmodels.MapPlace
 import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel
+import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceDetailsState
+import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceDetailsState.*
 import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceMasterState
 import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceMasterState.*
 import timber.log.Timber
@@ -73,6 +76,7 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
 
     private fun setupSubscriptions() {
         viewModel.masterEvents.observe(this, Observer(this::validateMasterEvents))
+        viewModel.detailsEvents.observe(this, Observer(this::validateDetailsEvents))
     }
 
     private fun setupMapBinding(map: GoogleMap) {
@@ -103,7 +107,27 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
         }
     }
 
+    private fun validateDetailsEvents(event: Event<PlaceDetailsState>?) {
+        event?.getContentIfNotHandled()?.let { state ->
+            when (state) {
+                is LoadDetails -> state.run { showDetailsInfo(details) }
+                is ShowDetailsError -> state.run {
+                    MessageBar.showError(this@PlaceDetailsActivity, binding.root, error.message)
+                }
+                HideLoadingDetails -> MessageBar.showInfo(this@PlaceDetailsActivity,
+                    binding.root,
+                    getString(R.string.loading_reviews))
+                ShowLoadingDetails -> {
+                }
+            }
+        }
+    }
+
     private fun showMasterInfo(master: MapPlace) {
         supportActionBar?.title = getString(R.string.place_details_title_with_name, master.name)
+    }
+
+    private fun showDetailsInfo(details: PlaceDetails) {
+        Timber.d(details.toString())
     }
 }

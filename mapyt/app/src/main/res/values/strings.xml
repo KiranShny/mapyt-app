@@ -14,4 +14,5 @@
     <string name="place_location">Ubicación del Lugar</string>
     <string name="save_place">Guardar Punto</string>
     <string name="reviews">Reseñas</string>
+    <string name="loading_reviews">Cargando reseñas</string>
 </resources>
