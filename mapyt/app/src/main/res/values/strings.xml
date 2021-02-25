@@ -12,4 +12,6 @@
     <string name="place_details_title_with_name">Acerca de %1$s</string>
     <string name="rating">Rating</string>
     <string name="place_location">Ubicación del Lugar</string>
+    <string name="save_place">Guardar Punto</string>
+    <string name="reviews">Reseñas</string>
 </resources>

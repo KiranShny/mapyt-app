@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/savedMenuItem"
-        android:icon="@drawable/ic_baseline_favorite_24"
+        android:icon="@drawable/ic_heart_save_filled"
         android:title="@string/my_places"
         app:showAsAction="always" />
 </menu>

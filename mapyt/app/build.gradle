@@ -24,6 +24,7 @@ android {
 
         buildConfigField("String", "GPLACES_KEY", appSettingsProps['GPLACES_KEY'])
         manifestPlaceholders = [ googleKey:appSettingsProps['GMAPS_KEY']]
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {

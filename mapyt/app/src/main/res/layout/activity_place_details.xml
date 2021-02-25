@@ -10,103 +10,145 @@
             type="me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".presentation.ui.PlaceDetailsActivity">
+        android:layout_height="match_parent">
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/svContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".presentation.ui.PlaceDetailsActivity">
 
-        <include
-            android:id="@+id/appBarLayout"
-            layout="@layout/inc_toolbar_main"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <include
+                    android:id="@+id/appBarLayout"
+                    layout="@layout/inc_toolbar_main"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivCover"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/cover_img_default_height"
-            android:background="@color/colorForPlaceholder"
-            android:scaleType="centerCrop"
-            app:imageUrl="@{viewmodel.coverImagePath}"
-            app:layout_constraintBottom_toTopOf="@id/tvTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivCover"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/cover_img_default_height"
+                    android:background="@color/colorForPlaceholder"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{viewmodel.coverImagePath}"
+                    app:layout_constraintBottom_toTopOf="@id/tvTitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spc_2x"
+                    android:ellipsize="marquee"
+                    android:maxLines="2"
+                    android:text="@{viewmodel.placeMaster.name}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    app:layout_constraintEnd_toStartOf="@id/chRating"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivCover"
+                    tools:text="@tools:sample/lorem" />
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="4"
+                    android:text="@{viewmodel.placeMaster.address}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    app:layout_constraintEnd_toEndOf="@id/tvTitle"
+                    app:layout_constraintStart_toStartOf="@id/tvTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                    tools:text="@tools:sample/lorem" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spc_2x"
+                    android:text="@{viewmodel.placeMaster.rating.toString()}"
+                    android:textAppearance="@style/AppTheme.Chip.Title1"
+                    app:chipBackgroundColor="@color/yellow_100"
+                    app:chipIcon="@drawable/ic_star_rating"
+                    app:chipStrokeColor="@color/yellow_300"
+                    app:chipStrokeWidth="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvTitle"
+                    app:rippleColor="@color/yellow_500"
+                    tools:text="5.0" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/barrierMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="tvAddress,chRating" />
+
+                <Space
+                    android:id="@+id/spaceMap"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/spc_2x"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/barrierMap" />
+
+                <fragment
+                    android:id="@+id/detailsMap"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/details_map_height"
+                    app:liteMode="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/spaceMap"
+                    tools:ignore="FragmentTagUsage" />
+
+                <TextView
+                    android:id="@+id/tvReviewsTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reviews"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:layout_margin="@dimen/spc_2x"
+                    app:layout_constraintTop_toBottomOf="@id/detailsMap"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvReviews"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/tvReviewsTitle"
+                    app:layout_constraintEnd_toEndOf="@id/tvReviewsTitle"
+                    app:layout_constraintStart_toStartOf="@id/tvReviewsTitle"
+                    tools:itemCount="4"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabSave"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spc_2x"
-            android:ellipsize="marquee"
-            android:maxLines="2"
-            android:text="@{viewmodel.placeMaster.name}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            app:layout_constraintEnd_toStartOf="@id/chRating"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivCover"
-            tools:text="@tools:sample/lorem" />
-
-        <TextView
-            android:id="@+id/tvAddress"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="4"
-            android:text="@{viewmodel.placeMaster.address}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            app:layout_constraintEnd_toEndOf="@id/tvTitle"
-            app:layout_constraintStart_toStartOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle"
-            tools:text="@tools:sample/lorem" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chRating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewmodel.placeMaster.rating.toString()}"
-            android:textAppearance="@style/AppTheme.Chip.Title1"
-            android:layout_marginEnd="@dimen/spc_2x"
-            app:chipIcon="@drawable/ic_baseline_star_border_24"
-            app:chipBackgroundColor="@color/yellow_100"
-            app:rippleColor="@color/yellow_500"
-            app:chipStrokeWidth="1dp"
-            app:chipStrokeColor="@color/yellow_300"
-            app:layout_constraintTop_toTopOf="@id/tvTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="5.0"
-            />
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrierMap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="tvAddress,chRating"
-            />
-
-        <Space
-            android:id="@+id/spaceMap"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/spc_2x"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/barrierMap" />
-
-        <fragment
-            android:id="@+id/detailsMap"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/details_map_height"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spaceMap"
-            app:liteMode="true"
-            tools:ignore="FragmentTagUsage" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:srcCompat="@drawable/ic_heart_save_outlined"
+            app:backgroundTint="@color/colorPrimaryLight"
+            app:tint="@android:color/white"
+            app:layout_anchor="@id/svContent"
+            app:layout_anchorGravity="bottom|end"
+            android:contentDescription="@string/save_place" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
