@@ -15,4 +15,5 @@
     <string name="save_place">Guardar Punto</string>
     <string name="reviews">Reseñas</string>
     <string name="loading_reviews">Cargando reseñas</string>
+    <string name="no_reviews">Sin reseñas</string>
 </resources>

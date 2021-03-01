@@ -129,11 +129,26 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginTop="@dimen/spc_2m"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@id/tvReviewsTitle"
                     app:layout_constraintEnd_toEndOf="@id/tvReviewsTitle"
                     app:layout_constraintStart_toStartOf="@id/tvReviewsTitle"
-                    tools:itemCount="4"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_place_review"
+                    />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/pgReviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/tvReviewsTitle"
+                    app:layout_constraintEnd_toEndOf="@id/tvReviewsTitle"
+                    app:layout_constraintStart_toStartOf="@id/tvReviewsTitle"
+                    tools:indeterminate="true"
+                    tools:visibility="visible"
                     />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

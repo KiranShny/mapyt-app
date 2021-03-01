@@ -41,4 +41,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="AppTheme.TextAppr.TitleItem1" parent="@style/TextAppearance.MaterialComponents.Body2">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.TextAppr.Rating" parent="@style/TextAppearance.MaterialComponents.Body1">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimaryVariantLight</item>
+    </style>
+
 </resources>
