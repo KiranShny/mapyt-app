@@ -5,13 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import me.mapyt.app.R
 import me.mapyt.app.core.domain.entities.PlaceDetails
-import me.mapyt.app.databinding.ActivityPlaceDetailsBindingImpl
+import me.mapyt.app.databinding.ActivityPlaceDetailsBinding
+import me.mapyt.app.presentation.adapters.PlaceReviewsAdapter
 import me.mapyt.app.presentation.utils.*
 import me.mapyt.app.presentation.viewmodels.MainViewModelFactory
 import me.mapyt.app.presentation.viewmodels.MapPlace
@@ -33,7 +35,8 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
     }
 
     private lateinit var mMap: GoogleMap
-    private lateinit var binding: ActivityPlaceDetailsBindingImpl
+    private lateinit var binding: ActivityPlaceDetailsBinding
+    private lateinit var reviewsAdapter: PlaceReviewsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +61,15 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
 
         setupToolbar(R.id.toolbar, R.string.place_details_title)
         enableBackNavigation(true)
+
+        reviewsAdapter = PlaceReviewsAdapter { model ->
+            Timber.d(model.toString())
+        }
+        binding.rvReviews.apply {
+            adapter = reviewsAdapter
+            addItemDecoration(DividerItemDecoration(this@PlaceDetailsActivity,
+                DividerItemDecoration.VERTICAL))
+        }
 
         viewModel.start(currentPlace)
     }
@@ -114,11 +126,8 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
                 is ShowDetailsError -> state.run {
                     MessageBar.showError(this@PlaceDetailsActivity, binding.root, error.message)
                 }
-                HideLoadingDetails -> MessageBar.showInfo(this@PlaceDetailsActivity,
-                    binding.root,
-                    getString(R.string.loading_reviews))
-                ShowLoadingDetails -> {
-                }
+                ShowLoadingDetails -> binding.pgReviews.shouldBeVisible(true)
+                HideLoadingDetails -> binding.pgReviews.shouldBeVisible(false, forceToGone = true)
             }
         }
     }
@@ -129,5 +138,10 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
 
     private fun showDetailsInfo(details: PlaceDetails) {
         Timber.d(details.toString())
+        if (details.reviews.isEmpty()) {
+            MessageBar.showInfo(this, binding.root, getString(R.string.no_reviews))
+            return
+        }
+        reviewsAdapter.updateData(details.reviews)
     }
 }
