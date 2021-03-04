@@ -102,7 +102,7 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
         map.addMarker(MarkerOptions()
             .position(position)
             .title(getString(R.string.place_location))
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN))
         )
         //TODO: obtener zoom desde vmodel
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 10.0f))

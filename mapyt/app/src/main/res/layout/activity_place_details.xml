@@ -77,13 +77,17 @@
                     android:layout_marginEnd="@dimen/spc_2x"
                     android:text="@{viewmodel.placeMaster.rating.toString()}"
                     android:textAppearance="@style/AppTheme.Chip.Title1"
-                    app:chipBackgroundColor="@color/yellow_100"
+                    app:chipMinHeight="36dp"
+                    app:chipStartPadding="6dp"
+                    app:chipEndPadding="8dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipStrokeColor="@color/gray_600"
                     app:chipIcon="@drawable/ic_star_rating"
-                    app:chipStrokeColor="@color/yellow_300"
+                    app:chipIconTint="@color/gray_900"
+                    app:rippleColor="@color/yellow_500"
                     app:chipStrokeWidth="1dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tvTitle"
-                    app:rippleColor="@color/yellow_500"
                     tools:text="5.0" />
 
                 <androidx.constraintlayout.widget.Barrier
@@ -116,12 +120,13 @@
                     android:id="@+id/tvReviewsTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/reviews"
+                    android:text='@{@string/reviews_with_badge(String.valueOf(viewmodel.placeDetails.reviews.size) ?? "0")}'
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_margin="@dimen/spc_2x"
                     app:layout_constraintTop_toBottomOf="@id/detailsMap"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    tools:text="@string/reviews"
                     />
 
                 <androidx.recyclerview.widget.RecyclerView

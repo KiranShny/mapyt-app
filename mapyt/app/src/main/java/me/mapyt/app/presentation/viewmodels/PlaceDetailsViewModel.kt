@@ -10,12 +10,12 @@ import kotlinx.coroutines.withContext
 import me.mapyt.app.core.domain.entities.PlaceDetails
 import me.mapyt.app.core.domain.usecases.GetPlaceDetailsUseCase
 import me.mapyt.app.core.domain.usecases.GetPlacePhotoUseCase
-import me.mapyt.app.core.domain.usecases.NearbyPlacesSearchParams
 import me.mapyt.app.core.shared.ResultOf
 import me.mapyt.app.core.shared.throwable
 import me.mapyt.app.presentation.utils.Event
-import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceMasterState.*
 import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceDetailsState.*
+import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceMasterState.LoadMaster
+import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceMasterState.ShowMasterError
 import timber.log.Timber
 
 class PlaceDetailsViewModel(
@@ -24,6 +24,9 @@ class PlaceDetailsViewModel(
 ) : ViewModel() {
     private val _placeMaster = MutableLiveData<MapPlace?>()
     val placeMaster: LiveData<MapPlace?> get() = _placeMaster
+
+    private val _placeDetails = MutableLiveData<PlaceDetails?>()
+    val placeDetails: LiveData<PlaceDetails?> get() = _placeDetails
 
     private val _masterEvents = MutableLiveData<Event<PlaceMasterState>>()
     val masterEvents: LiveData<Event<PlaceMasterState>> get() = _masterEvents
@@ -74,6 +77,7 @@ class PlaceDetailsViewModel(
             withContext(Dispatchers.Main) {
                 when (detailsResult) {
                     is ResultOf.Success<PlaceDetails> -> {
+                        _placeDetails.value  = detailsResult.value
                         _detailsEvents.value = Event(HideLoadingDetails)
                         _detailsEvents.value = Event(LoadDetails(detailsResult.value))
                     }
