@@ -33,7 +33,8 @@ class SearchNearbyPlacesUseCase(
 }
 
 data class NearbyPlacesSearchParams(
-    val keywords: List<String>,
+    val keywords: List<String>?,
     val location: String,
-    val radius: Int = DEFAULT_RADIUS_METERS
+    val radius: Int = DEFAULT_RADIUS_METERS,
+    val allowEmptyKeywords: Boolean = false,
 )

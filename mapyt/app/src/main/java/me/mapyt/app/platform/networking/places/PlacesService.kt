@@ -13,7 +13,7 @@ interface PlacesService {
 
     @GET(RESOURCE_NEARBY)
     suspend fun searchNearby(
-        @Query(PARAM_KEYWORD) keyword: String,
+        @Query(PARAM_KEYWORD) keyword: String?,
         @Query(PARAM_LOCATION) location: String,
         @Query(PARAM_RADIUS) radius: Int,
     ): NearbySearchResponse

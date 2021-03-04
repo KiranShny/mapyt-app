@@ -46,7 +46,7 @@ class PlacesSearchViewModel(private val searchPlacesUseCase: SearchNearbyPlacesU
     }
 
     fun start() {
-        //TODO: podrian cargarse lugares con la ubicacion por defecto
+        searchPlaces(null, currentUserPosition)
     }
 
     fun onMapReady() {
@@ -83,6 +83,7 @@ class PlacesSearchViewModel(private val searchPlacesUseCase: SearchNearbyPlacesU
             val searchResult = searchPlacesUseCase(NearbyPlacesSearchParams(
                 keywords = splitKeywords(keywords),
                 location = mergeCoords(userPosition.lat, userPosition.lng),
+                allowEmptyKeywords = keywords == null
             ))
             withContext(Dispatchers.Main) {
                 when (searchResult) {
@@ -110,13 +111,13 @@ class PlacesSearchViewModel(private val searchPlacesUseCase: SearchNearbyPlacesU
     private fun getDefaultPosition() =
         UserPosition(
             uniqueId(),
-            12.10629123798485,
-            -86.24891870346221,
+            DEFAULT_LAT,
+            DEFAULT_LNG,
             DEFAULT_ZOOM
         )
 
     private fun splitKeywords(keywords: String?) =
-        keywords?.split(DEFAULT_KEYWORD_SEPARATOR)?.map { it.trim() } ?: emptyList()
+        keywords?.split(DEFAULT_KEYWORD_SEPARATOR)?.map { it.trim() }
 
     private fun mergeCoords(latitude: Double, longitude: Double) = "${latitude},${longitude}"
 
@@ -130,7 +131,7 @@ class PlacesSearchViewModel(private val searchPlacesUseCase: SearchNearbyPlacesU
     companion object {
         const val DEFAULT_ZOOM = 16.0F
         const val DEFAULT_KEYWORD_SEPARATOR = ","
+        const val DEFAULT_LAT = 12.10629123798485
+        const val DEFAULT_LNG = -86.24891870346221
     }
-
-    //fun MapPlace.photoUrl(): String = "ApiConstants"
 }
