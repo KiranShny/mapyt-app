@@ -4,23 +4,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import me.mapyt.app.R
 import me.mapyt.app.core.domain.entities.PlaceDetails
 import me.mapyt.app.core.domain.usecases.GetPlaceDetailsUseCase
 import me.mapyt.app.core.domain.usecases.GetPlacePhotoUseCase
+import me.mapyt.app.core.domain.usecases.SavePlaceUseCase
 import me.mapyt.app.core.shared.ResultOf
 import me.mapyt.app.core.shared.throwable
+import me.mapyt.app.presentation.exceptions.ViewModelOperationException
 import me.mapyt.app.presentation.utils.Event
 import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceDetailsState.*
 import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceMasterState.LoadMaster
 import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceMasterState.ShowMasterError
+import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.SavedPlaceState
+import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.SavedPlaceState.*
 import timber.log.Timber
 
 class PlaceDetailsViewModel(
     private val getPhotoPathUseCase: GetPlacePhotoUseCase,
     private val getDetailsUseCase: GetPlaceDetailsUseCase,
+    private val savePlaceUseCase: SavePlaceUseCase,
 ) : ViewModel() {
     private val _placeMaster = MutableLiveData<MapPlace?>()
     val placeMaster: LiveData<MapPlace?> get() = _placeMaster
@@ -33,6 +37,9 @@ class PlaceDetailsViewModel(
 
     private val _detailsEvents = MutableLiveData<Event<PlaceDetailsState>>()
     val detailsEvents: LiveData<Event<PlaceDetailsState>> get() = _detailsEvents
+
+    private val _saveEvents = MutableLiveData<Event<SavedPlaceState>>()
+    val saveEvents: LiveData<Event<SavedPlaceState>> get() = _saveEvents
 
     private val _coverImagePath = MutableLiveData<String>()
     val coverImagePath: LiveData<String> get() = _coverImagePath
@@ -50,11 +57,20 @@ class PlaceDetailsViewModel(
         }
     }
 
+    fun trySavePlace() {
+        _placeDetails.value?.let { details ->
+            savePlace(details)
+        } ?: run {
+            _detailsEvents.value = Event(
+                ShowDetailsError(ViewModelOperationException(R.string.trying_save_place_error))
+            )
+        }
+    }
+
     private fun getCoverPhotoPath(mapPlace: MapPlace?): String? {
         mapPlace?.let { master ->
             val coverPath = master.photosRefs?.first() ?: return null
-            val photoPathResult = getPhotoPathUseCase(coverPath)
-            return when (photoPathResult) {
+            return when (val photoPathResult = getPhotoPathUseCase(coverPath)) {
                 is ResultOf.Success -> photoPathResult.value
                 is ResultOf.Failure -> {
                     //por el momento la excepcion es silenciosa, se cargaria placeholder
@@ -62,7 +78,7 @@ class PlaceDetailsViewModel(
                     null
                 }
             }
-        } ?: kotlin.run {
+        } ?: run {
             return null
         }
     }
@@ -74,13 +90,29 @@ class PlaceDetailsViewModel(
         viewModelScope.launch {
             when (val detailsResult = getDetailsUseCase(placeId)) {
                 is ResultOf.Success<PlaceDetails> -> {
-                    _placeDetails.value  = detailsResult.value
+                    _placeDetails.value = detailsResult.value
                     _detailsEvents.value = Event(HideLoadingDetails)
                     _detailsEvents.value = Event(LoadDetails(detailsResult.value))
                 }
                 else -> {
                     _detailsEvents.value = Event(HideLoadingDetails)
                     _detailsEvents.value = Event(ShowDetailsError(detailsResult.throwable))
+                }
+            }
+        }
+    }
+
+    private fun savePlace(place: PlaceDetails) {
+        _saveEvents.value = Event(ShowSavingPlace)
+        viewModelScope.launch {
+            when(val saveResult = savePlaceUseCase(place)) {
+                is ResultOf.Success<Boolean> -> {
+                    _saveEvents.value = Event(HideSavingPlace)
+                    _saveEvents.value = Event(OnPlaceSaved(place))
+                }
+                else -> {
+                    _saveEvents.value = Event(HideSavingPlace)
+                    _saveEvents.value = Event(OnSavePlaceError(saveResult.throwable))
                 }
             }
         }
@@ -96,6 +128,13 @@ class PlaceDetailsViewModel(
         data class ShowDetailsError(val error: Throwable) : PlaceDetailsState()
         object HideLoadingDetails : PlaceDetailsState()
         object ShowLoadingDetails : PlaceDetailsState()
+    }
+
+    sealed class SavedPlaceState {
+        data class OnPlaceSaved(val details: PlaceDetails): SavedPlaceState()
+        data class OnSavePlaceError(val error: Throwable): SavedPlaceState()
+        object ShowSavingPlace: SavedPlaceState()
+        object HideSavingPlace: SavedPlaceState()
     }
 
 }

@@ -5,10 +5,18 @@ import com.squareup.picasso.Picasso
 import timber.log.Timber
 
 class MapytApp : Application() {
+
+    lateinit var dbContainer: DbContainer
+
     override fun onCreate() {
         super.onCreate()
         setupLogger()
+        setupContainers()
         setupImageLoader()
+    }
+
+    private fun setupContainers() {
+        dbContainer = DbContainer(this)
     }
 
     private fun setupLogger() {

@@ -14,14 +14,15 @@ import me.mapyt.app.R
 import me.mapyt.app.core.domain.entities.PlaceDetails
 import me.mapyt.app.databinding.ActivityPlaceDetailsBinding
 import me.mapyt.app.presentation.adapters.PlaceReviewsAdapter
+import me.mapyt.app.presentation.exceptions.ViewModelOperationException
 import me.mapyt.app.presentation.utils.*
 import me.mapyt.app.presentation.viewmodels.MainViewModelFactory
 import me.mapyt.app.presentation.viewmodels.MapPlace
 import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel
-import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceDetailsState
+import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.*
 import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceDetailsState.*
-import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceMasterState
 import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.PlaceMasterState.*
+import me.mapyt.app.presentation.viewmodels.PlaceDetailsViewModel.SavedPlaceState.*
 import timber.log.Timber
 
 class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCallback {
@@ -31,7 +32,8 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
     }
 
     private val viewModel: PlaceDetailsViewModel by lazy {
-        ViewModelProvider(this, MainViewModelFactory).get(PlaceDetailsViewModel::class.java)
+        ViewModelProvider(this,
+            MainViewModelFactory(application)).get(PlaceDetailsViewModel::class.java)
     }
 
     private lateinit var mMap: GoogleMap
@@ -57,7 +59,6 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
         setupSubscriptions()
 
         val currentPlace = intent.getParcelableExtra<MapPlace>(PLACE_PARAM)
-        Timber.d(currentPlace.toString())
 
         setupToolbar(R.id.toolbar, R.string.place_details_title)
         enableBackNavigation(true)
@@ -69,6 +70,9 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
             adapter = reviewsAdapter
             addItemDecoration(DividerItemDecoration(this@PlaceDetailsActivity,
                 DividerItemDecoration.VERTICAL))
+        }
+        binding.fabSave.setOnClickListener {
+            viewModel.trySavePlace()
         }
 
         viewModel.start(currentPlace)
@@ -89,6 +93,7 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
     private fun setupSubscriptions() {
         viewModel.masterEvents.observe(this, Observer(this::validateMasterEvents))
         viewModel.detailsEvents.observe(this, Observer(this::validateDetailsEvents))
+        viewModel.saveEvents.observe(this, Observer(this::validateSaveEvents))
     }
 
     private fun setupMapBinding(map: GoogleMap) {
@@ -132,12 +137,32 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
         }
     }
 
+    private fun validateSaveEvents(event: Event<SavedPlaceState>?) {
+        event?.getContentIfNotHandled()?.let { state ->
+            when (state) {
+                HideSavingPlace -> binding.fabSave.isEnabled = true
+                is OnPlaceSaved -> state.run {
+                    MessageBar.showInfo(this@PlaceDetailsActivity,
+                        binding.root,
+                        getString(R.string.saved_place))
+                }
+                is OnSavePlaceError -> state.run {
+                    var errorMessage = getString(R.string.something_went_wrong)
+                    if (error is ViewModelOperationException) {
+                        errorMessage = getString(error.messageId)
+                    }
+                    MessageBar.showError(this@PlaceDetailsActivity, binding.root, errorMessage)
+                }
+                ShowSavingPlace -> binding.fabSave.isEnabled = false
+            }
+        }
+    }
+
     private fun showMasterInfo(master: MapPlace) {
         supportActionBar?.title = getString(R.string.place_details_title_with_name, master.name)
     }
 
     private fun showDetailsInfo(details: PlaceDetails) {
-        Timber.d(details.toString())
         if (details.reviews.isEmpty()) {
             MessageBar.showInfo(this, binding.root, getString(R.string.no_reviews))
             return

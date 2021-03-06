@@ -33,7 +33,8 @@ class PlacesSearchFragment : Fragment(), AppFragmentBase,
     OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMapClickListener {
 
     private val viewModel: PlacesSearchViewModel by lazy {
-        ViewModelProvider(this, MainViewModelFactory).get(PlacesSearchViewModel::class.java)
+        ViewModelProvider(this, MainViewModelFactory(activity?.application)).get(
+            PlacesSearchViewModel::class.java)
     }
     private lateinit var mListener: OnPlaceSearchFragmentListener
     private lateinit var binding: FragmentPlacesSearchBindingImpl

@@ -3,7 +3,10 @@ package me.mapyt.app.core.data
 import me.mapyt.app.core.domain.entities.Place
 import me.mapyt.app.core.domain.entities.PlaceDetails
 
-class PlacesRepository(private val remoteSource: PlacesRemoteSource) {
+class PlacesRepository(
+    private val remoteSource: PlacesRemoteSource,
+    private val localSource: PlacesLocalSource
+) {
 
     companion object {
         const val KEYWORD_SEPARATOR = "|"
@@ -21,6 +24,10 @@ class PlacesRepository(private val remoteSource: PlacesRemoteSource) {
 
     fun getPhotoPath(reference: String, maxHeight: Int) =
         remoteSource.getPhotoPath(reference, maxHeight)
+
+    suspend fun savePlace(place: PlaceDetails) {
+        localSource.insert(place)
+    }
 
     private fun joinKeywords(keywords: List<String>?) = keywords?.joinToString(KEYWORD_SEPARATOR)
 }

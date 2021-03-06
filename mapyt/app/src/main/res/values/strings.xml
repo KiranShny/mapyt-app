@@ -17,4 +17,7 @@
     <string name="reviews_with_badge">Reseñas (%s)</string>
     <string name="loading_reviews">Cargando reseñas</string>
     <string name="no_reviews">Sin reseñas</string>
+    <string name="trying_save_place_error">\"Disculpa, ha ocurrido un error al intentar guardar el lugar\"</string>
+    <string name="something_went_wrong">Disculpa, algo salió mal</string>
+    <string name="saved_place">Lugar guardado!</string>
 </resources>
