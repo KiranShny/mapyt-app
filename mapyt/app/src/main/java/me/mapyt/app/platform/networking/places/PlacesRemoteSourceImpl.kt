@@ -1,13 +1,23 @@
 package me.mapyt.app.platform.networking.places
 
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import me.mapyt.app.core.data.PlacesRemoteSource
 import me.mapyt.app.core.domain.entities.Place
 import me.mapyt.app.core.domain.entities.PlaceDetails
 import me.mapyt.app.core.shared.InvalidResponseException
 
-class PlacesRemoteSourceImpl(private val service: PlacesService) : PlacesRemoteSource {
+class PlacesRemoteSourceImpl(
+    private val service: PlacesService,
+    private val opsDispatcher: CoroutineDispatcher = Dispatchers.IO,
+) : PlacesRemoteSource {
 
-    override suspend fun searchNearby(keyword: String?, location: String, radius: Int): List<Place> {
+    override suspend fun searchNearby(
+        keyword: String?,
+        location: String,
+        radius: Int,
+    ): List<Place> {
         val response = service.searchNearby(keyword, location, radius)
         //TODO: mover a interceptor
         if (isInvalidStatus(response.status)) throw InvalidResponseException(response.status)
@@ -15,9 +25,11 @@ class PlacesRemoteSourceImpl(private val service: PlacesService) : PlacesRemoteS
     }
 
     override suspend fun getDetails(id: String): PlaceDetails {
-        val response = service.getDetails(id)
-        if(isInvalidStatus(response.status)) throw InvalidResponseException(response.status)
-        return response.toPlaceDetails()
+        return withContext(opsDispatcher) {
+            val response = service.getDetails(id)
+            if (isInvalidStatus(response.status)) throw InvalidResponseException(response.status)
+            response.toPlaceDetails()
+        }
     }
 
     override fun getPhotoPath(reference: String, maxHeight: Int): String {

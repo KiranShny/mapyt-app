@@ -71,23 +71,16 @@ class PlaceDetailsViewModel(
         val placeId = master.code
         _detailsEvents.value = Event(ShowLoadingDetails)
 
-        //TODO: mover scope a use case
-        viewModelScope.launch(Dispatchers.IO) {
-            val detailsResult = getDetailsUseCase(placeId)
-            withContext(Dispatchers.Main) {
-                when (detailsResult) {
-                    is ResultOf.Success<PlaceDetails> -> {
-                        _placeDetails.value  = detailsResult.value
-                        _detailsEvents.value = Event(HideLoadingDetails)
-                        _detailsEvents.value = Event(LoadDetails(detailsResult.value))
-                    }
-                    else -> {
-                        _detailsEvents.value =
-                            Event(HideLoadingDetails)
-                        _detailsEvents.value =
-                            Event(ShowDetailsError(
-                                detailsResult.throwable))
-                    }
+        viewModelScope.launch {
+            when (val detailsResult = getDetailsUseCase(placeId)) {
+                is ResultOf.Success<PlaceDetails> -> {
+                    _placeDetails.value  = detailsResult.value
+                    _detailsEvents.value = Event(HideLoadingDetails)
+                    _detailsEvents.value = Event(LoadDetails(detailsResult.value))
+                }
+                else -> {
+                    _detailsEvents.value = Event(HideLoadingDetails)
+                    _detailsEvents.value = Event(ShowDetailsError(detailsResult.throwable))
                 }
             }
         }
