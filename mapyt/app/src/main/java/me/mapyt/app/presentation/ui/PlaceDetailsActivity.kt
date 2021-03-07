@@ -141,10 +141,16 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
         event?.getContentIfNotHandled()?.let { state ->
             when (state) {
                 HideSavingPlace -> binding.fabSave.isEnabled = true
+                ShowSavingPlace -> binding.fabSave.isEnabled = false
                 is OnPlaceSaved -> state.run {
-                    MessageBar.showInfo(this@PlaceDetailsActivity,
+                    MessageBar.showSuccess(this@PlaceDetailsActivity,
                         binding.root,
                         getString(R.string.saved_place))
+                }
+                is OnPlaceDeleted -> {
+                    MessageBar.showInfo(this@PlaceDetailsActivity,
+                        binding.root,
+                        getString(R.string.deleted_place))
                 }
                 is OnSavePlaceError -> state.run {
                     var errorMessage = getString(R.string.something_went_wrong)
@@ -153,7 +159,6 @@ class PlaceDetailsActivity : AppCompatActivity(), AppActivityBase, OnMapReadyCal
                     }
                     MessageBar.showError(this@PlaceDetailsActivity, binding.root, errorMessage)
                 }
-                ShowSavingPlace -> binding.fabSave.isEnabled = false
             }
         }
     }

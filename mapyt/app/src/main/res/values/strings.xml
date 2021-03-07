@@ -20,4 +20,5 @@
     <string name="trying_save_place_error">\"Disculpa, ha ocurrido un error al intentar guardar el lugar\"</string>
     <string name="something_went_wrong">Disculpa, algo salió mal</string>
     <string name="saved_place">Lugar guardado!</string>
+    <string name="deleted_place">El lugar se ha borrado de guardados</string>
 </resources>

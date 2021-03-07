@@ -5,10 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import me.mapyt.app.MapytApp
 import me.mapyt.app.core.data.PlacesRepository
-import me.mapyt.app.core.domain.usecases.GetPlaceDetailsUseCase
-import me.mapyt.app.core.domain.usecases.GetPlacePhotoUseCase
-import me.mapyt.app.core.domain.usecases.SavePlaceUseCase
-import me.mapyt.app.core.domain.usecases.SearchNearbyPlacesUseCase
+import me.mapyt.app.core.domain.usecases.*
 import me.mapyt.app.platform.database.sources.PlacesLocalSourceImpl
 import me.mapyt.app.platform.networking.places.ApiClient
 import me.mapyt.app.platform.networking.places.PlacesRemoteSourceImpl
@@ -48,12 +45,14 @@ class MainViewModelFactory(private val application: Application?) : ViewModelPro
                 .getConstructor(
                     GetPlacePhotoUseCase::class.java,
                     GetPlaceDetailsUseCase::class.java,
-                    SavePlaceUseCase::class.java,
+                    ToggleSavePlaceUseCase::class.java,
+                    IsSavedPlaceUseCase::class.java
                 )
                 .newInstance(
                     GetPlacePhotoUseCase(repository),
                     GetPlaceDetailsUseCase(repository),
-                    SavePlaceUseCase(repository)
+                    ToggleSavePlaceUseCase(repository),
+                    IsSavedPlaceUseCase(repository)
                 )
         }
 

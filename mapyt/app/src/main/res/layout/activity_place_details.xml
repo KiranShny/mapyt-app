@@ -164,9 +164,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spc_2x"
-            app:srcCompat="@drawable/ic_heart_save_outlined"
-            app:backgroundTint="@color/colorPrimaryLight"
-            app:tint="@android:color/white"
+            app:isOn="@{viewmodel.isPlaceSaved}"
+            app:srcOn="@{@drawable/ic_heart_save_filled}"
+            app:srcOff="@{@drawable/ic_heart_save_outlined}"
             app:layout_anchor="@id/svContent"
             app:layout_anchorGravity="bottom|end"
             android:contentDescription="@string/save_place" />
