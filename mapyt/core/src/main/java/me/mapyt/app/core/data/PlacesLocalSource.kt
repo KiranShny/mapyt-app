@@ -5,6 +5,7 @@ import me.mapyt.app.core.domain.entities.PlaceDetails
 interface PlacesLocalSource {
     suspend fun getAll(): List<PlaceDetails>
     suspend fun get(code: String): PlaceDetails
+    suspend fun exists(code: String): Boolean
     suspend fun insert(entity: PlaceDetails)
     suspend fun delete(entity: PlaceDetails)
     suspend fun deleteAll()

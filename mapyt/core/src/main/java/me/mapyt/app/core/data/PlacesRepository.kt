@@ -25,9 +25,11 @@ class PlacesRepository(
     fun getPhotoPath(reference: String, maxHeight: Int) =
         remoteSource.getPhotoPath(reference, maxHeight)
 
-    suspend fun savePlace(place: PlaceDetails) {
-        localSource.insert(place)
-    }
+    suspend fun savePlace(place: PlaceDetails) = localSource.insert(place)
+
+    suspend fun existsSavedPlace(placeId: String) = localSource.exists(placeId)
+
+    suspend fun deletePlace(place: PlaceDetails) = localSource.delete(place)
 
     private fun joinKeywords(keywords: List<String>?) = keywords?.joinToString(KEYWORD_SEPARATOR)
 }

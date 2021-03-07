@@ -12,6 +12,9 @@ interface PlaceDao {
     @Query("SELECT * FROM ${AppDb.SAVED_PLACE_TABLE} WHERE id = :code")
     suspend fun get(code: String): SavedPlaceEntity
 
+    @Query("SELECT EXISTS(SELECT 1 FROM ${AppDb.SAVED_PLACE_TABLE} WHERE id = :code LIMIT 1)")
+    suspend fun exists(code: String): Boolean
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entity: SavedPlaceEntity)
 

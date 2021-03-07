@@ -2,6 +2,7 @@ package me.mapyt.app.platform.database.sources
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import me.mapyt.app.core.data.PlacesLocalSource
 import me.mapyt.app.core.domain.entities.PlaceDetails
@@ -27,21 +28,28 @@ class PlacesLocalSourceImpl(
         }
     }
 
+    override suspend fun exists(code: String): Boolean {
+        return withContext(opsDispatcher) {
+            delay(500) //just for testing
+            dao.exists(code)
+        }
+    }
+
     override suspend fun insert(entity: PlaceDetails) {
         return withContext(opsDispatcher) {
-            val dbResponse = dao.insert(entity.toSavedPlaceEntity())
+            dao.insert(entity.toSavedPlaceEntity())
         }
     }
 
     override suspend fun delete(entity: PlaceDetails) {
         return withContext(opsDispatcher) {
-            val dbResponse = dao.delete(entity.toSavedPlaceEntity())
+            dao.delete(entity.toSavedPlaceEntity())
         }
     }
 
     override suspend fun deleteAll() {
         return withContext(opsDispatcher) {
-            val dbResponse = dao.deleteAll()
+            dao.deleteAll()
         }
     }
 }
