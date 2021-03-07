@@ -9,6 +9,11 @@ import me.mapyt.app.R
 
 object MessageBar {
 
+    fun showSuccess(context: Context?, containerView: View, message: String) {
+        if(context == null) return
+        return show(context, containerView, message, R.color.colorOnSuccess)
+    }
+
     fun showInfo(context: Context?, containerView: View, message: String) {
         if(context == null) return
         return show(context, containerView, message, R.color.colorOnInfo)

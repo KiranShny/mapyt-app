@@ -8,6 +8,7 @@
     <color name="colorOnSecondaryLight">@color/black</color>
     <color name="colorOnError">@color/orange_500</color>
     <color name="colorOnInfo">@color/blue_500</color>
+    <color name="colorOnSuccess">@color/green_700</color>
     <color name="colorForPlaceholder">@color/gray_500</color>
     <color name="colorForMedia">@color/yellow_100</color>
 
