@@ -12,7 +12,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mapyt">
-        <activity android:name=".presentation.ui.PlaceDetailsActivity"></activity>
+        <activity android:name=".presentation.ui.SavedPlacesActivity"></activity>
+        <activity android:name=".presentation.ui.PlaceDetailsActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

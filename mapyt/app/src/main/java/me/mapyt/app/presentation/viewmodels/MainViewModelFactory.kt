@@ -55,6 +55,9 @@ class MainViewModelFactory(private val application: Application?) : ViewModelPro
                     IsSavedPlaceUseCase(repository)
                 )
         }
+        if (SavedPlacesViewModel::class.java.isAssignableFrom(modelClass)) {
+            return modelClass.getConstructor().newInstance()
+        }
 
         throw IllegalStateException("El ViewModel solicitado no fue encontrado");
     }

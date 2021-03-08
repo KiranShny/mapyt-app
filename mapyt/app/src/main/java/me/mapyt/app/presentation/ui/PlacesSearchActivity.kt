@@ -2,6 +2,7 @@ package me.mapyt.app.presentation.ui
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import me.mapyt.app.R
 import me.mapyt.app.presentation.utils.*
@@ -21,9 +22,14 @@ class PlacesSearchActivity : AppCompatActivity(), AppActivityBase,
         return super.onCreateOptionsMenu(menu)
     }
 
-    private fun setup() {
-        setupToolbar(R.id.toolbar, R.string.app_name, R.string.search_places)
-        setFragment(PlacesSearchFragment.newInstance(), R.id.searchContainerView)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.savedMenuItem -> {
+                navigateToSavedPlaces()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun navigateToPlaceDetails(place: MapPlace) {
@@ -33,4 +39,13 @@ class PlacesSearchActivity : AppCompatActivity(), AppActivityBase,
         }
     }
 
+    private fun setup() {
+        setupToolbar(R.id.toolbar, R.string.app_name, R.string.search_places)
+        setFragment(PlacesSearchFragment.newInstance(), R.id.searchContainerView)
+    }
+
+    private fun navigateToSavedPlaces() {
+        hideKeyboard()
+        startActivity<SavedPlacesActivity> {}
+    }
 }
