@@ -25,6 +25,8 @@ class PlacesRepository(
     fun getPhotoPath(reference: String, maxHeight: Int) =
         remoteSource.getPhotoPath(reference, maxHeight)
 
+    suspend fun getSavedPlaces() = localSource.getAll()
+
     suspend fun savePlace(place: PlaceDetails) = localSource.insert(place)
 
     suspend fun existsSavedPlace(placeId: String) = localSource.exists(placeId)
