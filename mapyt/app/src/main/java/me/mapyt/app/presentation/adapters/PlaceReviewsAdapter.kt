@@ -41,7 +41,6 @@ class PlaceReviewsAdapter(private val listener: (PlaceReview) -> Unit) :
             binding.root.setOnClickListener {
                 listener(item)
             }
-            //itemView.setOnClickListener { listener(item) }
         }
     }
 }

@@ -16,7 +16,7 @@ class MainViewModelFactory(private val application: Application?) : ViewModelPro
 
     //TODO: reemplazar con Koin
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if(application == null) {
+        if (application == null) {
             throw IllegalArgumentException("Invalid Application")
         }
 
@@ -40,7 +40,7 @@ class MainViewModelFactory(private val application: Application?) : ViewModelPro
             val repository = PlacesRepository(
                 PlacesRemoteSourceImpl(ApiClient.service),
                 PlacesLocalSourceImpl(placeDao)
-                )
+            )
             return modelClass
                 .getConstructor(
                     GetPlacePhotoUseCase::class.java,
@@ -56,7 +56,12 @@ class MainViewModelFactory(private val application: Application?) : ViewModelPro
                 )
         }
         if (SavedPlacesViewModel::class.java.isAssignableFrom(modelClass)) {
-            return modelClass.getConstructor().newInstance()
+            val repository = PlacesRepository(
+                PlacesRemoteSourceImpl(ApiClient.service),
+                PlacesLocalSourceImpl(placeDao)
+            )
+            return modelClass.getConstructor(GetSavedPlacesUseCase::class.java)
+                .newInstance(GetSavedPlacesUseCase(repository))
         }
 
         throw IllegalStateException("El ViewModel solicitado no fue encontrado");
