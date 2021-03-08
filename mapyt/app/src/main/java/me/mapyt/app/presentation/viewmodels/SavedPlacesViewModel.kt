@@ -11,14 +11,23 @@ import me.mapyt.app.core.shared.ResultOf
 import me.mapyt.app.core.shared.throwable
 import me.mapyt.app.presentation.utils.Event
 import me.mapyt.app.presentation.viewmodels.SavedPlacesViewModel.SavedPlacesState.*
+import me.mapyt.app.presentation.viewmodels.SavedPlacesViewModel.SelectedPlaceState.ShowPlaceDetails
 
 class SavedPlacesViewModel(private val getSavedPlacesUseCase: GetSavedPlacesUseCase) : ViewModel() {
 
     private val _placesEvents = MutableLiveData<Event<SavedPlacesState>>()
     val placesEvents: LiveData<Event<SavedPlacesState>> get() = _placesEvents
 
+    private val _selectedPlaceEvents = MutableLiveData<Event<SelectedPlaceState>>()
+    val selectedPlaceEvents: LiveData<Event<SelectedPlaceState>> get() = _selectedPlaceEvents
+
     fun start() {
         loadSavedPlaces()
+    }
+
+    fun onPlaceSelected(placeDetails: PlaceDetails) {
+        val placeMaster = placeDetails.toMaster()
+        _selectedPlaceEvents.value = Event(ShowPlaceDetails(placeMaster))
     }
 
     private fun loadSavedPlaces() {
@@ -41,5 +50,9 @@ class SavedPlacesViewModel(private val getSavedPlacesUseCase: GetSavedPlacesUseC
         data class LoadPlaces(val places: List<PlaceDetails>) : SavedPlacesState()
         data class ShowPlacesError(val error: Throwable) : SavedPlacesState()
         data class LoadingPlaces(val isLoading: Boolean) : SavedPlacesState()
+    }
+
+    sealed class SelectedPlaceState {
+        data class ShowPlaceDetails(val master: MapPlace) : SelectedPlaceState()
     }
 }

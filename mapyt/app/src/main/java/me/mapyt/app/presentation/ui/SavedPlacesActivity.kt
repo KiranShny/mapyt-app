@@ -22,8 +22,7 @@ class SavedPlacesActivity : AppCompatActivity(), AppActivityBase,
         enableBackNavigation(true)
         setFragment(SavedPlacesFragment.newInstance(), R.id.fcvSavedPlaces)
     }
-
-
+    
     override fun navigateToDetails(place: MapPlace) {
         startActivity<PlaceDetailsActivity> {
             putExtra(PlaceDetailsActivity.PLACE_PARAM, place)

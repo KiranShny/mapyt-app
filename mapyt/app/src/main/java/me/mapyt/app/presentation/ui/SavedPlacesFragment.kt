@@ -22,6 +22,8 @@ import me.mapyt.app.presentation.viewmodels.MapPlace
 import me.mapyt.app.presentation.viewmodels.SavedPlacesViewModel
 import me.mapyt.app.presentation.viewmodels.SavedPlacesViewModel.SavedPlacesState
 import me.mapyt.app.presentation.viewmodels.SavedPlacesViewModel.SavedPlacesState.*
+import me.mapyt.app.presentation.viewmodels.SavedPlacesViewModel.SelectedPlaceState
+import me.mapyt.app.presentation.viewmodels.SavedPlacesViewModel.SelectedPlaceState.*
 import timber.log.Timber
 
 class SavedPlacesFragment : Fragment(), AppFragmentBase {
@@ -66,7 +68,7 @@ class SavedPlacesFragment : Fragment(), AppFragmentBase {
 
     private fun setup() {
         placesAdapter = SavedPlacesAdapter { place ->
-            Timber.d(place.toString())
+            viewModel.onPlaceSelected(place)
         }
         binding.rvSavedPlaces.apply {
             adapter = placesAdapter
@@ -78,20 +80,34 @@ class SavedPlacesFragment : Fragment(), AppFragmentBase {
 
     private fun setupSubscriptions() {
         viewModel.placesEvents.observe(viewLifecycleOwner, Observer(this::validatePlaceEvents))
+        viewModel.selectedPlaceEvents.observe(viewLifecycleOwner,
+            Observer(this::validateSelectedPlaceEvents))
     }
 
     private fun validatePlaceEvents(event: Event<SavedPlacesState>?) {
         event?.getContentIfNotHandled()?.let { state ->
             when (state) {
                 is LoadPlaces -> {
-                    if(state.places.isEmpty()) {
-                        MessageBar.showInfo(context, binding.root, getString(R.string.no_saved_places))
+                    if (state.places.isEmpty()) {
+                        MessageBar.showInfo(context,
+                            binding.root,
+                            getString(R.string.no_saved_places))
                         return
                     }
                     placesAdapter.updateData(state.places)
                 }
-                is ShowPlacesError -> MessageBar.showError(context, binding.root, state.error.message)
+                is ShowPlacesError -> MessageBar.showError(context,
+                    binding.root,
+                    state.error.message)
                 is LoadingPlaces -> binding.pgPlaces.shouldBeVisible(state.isLoading, true)
+            }
+        }
+    }
+
+    private fun validateSelectedPlaceEvents(event: Event<SelectedPlaceState>?) {
+        event?.getContentIfNotHandled()?.let { state ->
+            when (state) {
+                is ShowPlaceDetails -> navigateToDetails(state.master)
             }
         }
     }
