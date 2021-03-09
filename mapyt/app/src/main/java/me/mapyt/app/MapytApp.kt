@@ -2,6 +2,7 @@ package me.mapyt.app
 
 import android.app.Application
 import com.squareup.picasso.Picasso
+import me.mapyt.app.platform.database.DbContainer
 import timber.log.Timber
 
 class MapytApp : Application() {

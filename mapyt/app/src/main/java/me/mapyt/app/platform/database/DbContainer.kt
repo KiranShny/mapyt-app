@@ -1,4 +1,4 @@
-package me.mapyt.app
+package me.mapyt.app.platform.database
 
 import android.content.Context
 import me.mapyt.app.platform.database.AppDb
